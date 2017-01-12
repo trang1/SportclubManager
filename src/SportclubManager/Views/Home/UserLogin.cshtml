@@ -1,0 +1,11 @@
+﻿@model SportclubManager.Models.User
+@if (Model != null)
+{
+    <li>@Model.UserLogin</li>
+    <li>@Html.ActionLink("Выход", "Logout", "Login")</li>
+}
+else
+{
+    <li>@Html.ActionLink("Вход", "Index", "Login")</li>
+}
+

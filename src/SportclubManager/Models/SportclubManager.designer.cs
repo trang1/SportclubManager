@@ -23,7 +23,7 @@ namespace SportclubManager.Models
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="AAC")]
-	public partial class SportclubManagerDataClassesDataContext : System.Data.Linq.DataContext
+	public partial class SportclubManagerDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -50,31 +50,31 @@ namespace SportclubManager.Models
     partial void DeleteUser(User instance);
     #endregion
 		
-		public SportclubManagerDataClassesDataContext() : 
+		public SportclubManagerDataContext() : 
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["AACConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public SportclubManagerDataClassesDataContext(string connection) : 
+		public SportclubManagerDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public SportclubManagerDataClassesDataContext(System.Data.IDbConnection connection) : 
+		public SportclubManagerDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public SportclubManagerDataClassesDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public SportclubManagerDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public SportclubManagerDataClassesDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public SportclubManagerDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -249,7 +249,7 @@ namespace SportclubManager.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tbUser_Document", Storage="_User", ThisKey="UserID", OtherKey="UserID", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Document", Storage="_User", ThisKey="UserID", OtherKey="UserID", IsForeignKey=true)]
 		public User User
 		{
 			get
@@ -372,7 +372,7 @@ namespace SportclubManager.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Role_tbUser", Storage="_Users", ThisKey="RoleID", OtherKey="RoleID")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Role_User", Storage="_Users", ThisKey="RoleID", OtherKey="RoleID")]
 		public EntitySet<User> Users
 		{
 			get
@@ -1181,7 +1181,7 @@ namespace SportclubManager.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tbUser_Group", Storage="_User", ThisKey="CoachID", OtherKey="UserID", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Group", Storage="_User", ThisKey="CoachID", OtherKey="UserID", IsForeignKey=true)]
 		public User User
 		{
 			get
@@ -1434,7 +1434,7 @@ namespace SportclubManager.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tbUser_Document", Storage="_Documents", ThisKey="UserID", OtherKey="UserID")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Document", Storage="_Documents", ThisKey="UserID", OtherKey="UserID")]
 		public EntitySet<Document> Documents
 		{
 			get
@@ -1447,7 +1447,7 @@ namespace SportclubManager.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tbUser_Group", Storage="_Groups", ThisKey="UserID", OtherKey="CoachID")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Group", Storage="_Groups", ThisKey="UserID", OtherKey="CoachID")]
 		public EntitySet<Group> Groups
 		{
 			get
@@ -1460,7 +1460,7 @@ namespace SportclubManager.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Role_tbUser", Storage="_Role", ThisKey="RoleID", OtherKey="RoleID", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Role_User", Storage="_Role", ThisKey="RoleID", OtherKey="RoleID", IsForeignKey=true)]
 		public Role Role
 		{
 			get

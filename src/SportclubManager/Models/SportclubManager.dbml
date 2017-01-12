@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AAC" Class="SportclubManagerDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AAC" Class="SportclubManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=COM25\SQLEXPRESS;Initial Catalog=AAC;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AACConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tbDocument" Member="Documents">
     <Type Name="Document">
@@ -6,14 +6,14 @@
       <Column Name="DocumentName" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
       <Column Name="DocumentLocation" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
       <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="tbUser_Document" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+      <Association Name="User_Document" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.tbRole" Member="Roles">
     <Type Name="Role">
       <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="RoleName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Role_tbUser" Member="Users" ThisKey="RoleID" OtherKey="RoleID" Type="User" />
+      <Association Name="Role_User" Member="Users" ThisKey="RoleID" OtherKey="RoleID" Type="User" />
     </Type>
   </Table>
   <Table Name="dbo.tbMember" Member="Members">
@@ -52,7 +52,7 @@
       <Column Name="CoachID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Group_Member" Member="Members" ThisKey="GroupID" OtherKey="GroupID" Type="Member" />
       <Association Name="Group_MemberEvidence" Member="MemberEvidences" ThisKey="GroupID" OtherKey="GroupID" Type="MemberEvidence" />
-      <Association Name="tbUser_Group" Member="User" ThisKey="CoachID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+      <Association Name="User_Group" Member="User" ThisKey="CoachID" OtherKey="UserID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.tbUser" Member="Users">
@@ -63,9 +63,9 @@
       <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="UserLogin" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="UserPassword" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="tbUser_Document" Member="Documents" ThisKey="UserID" OtherKey="UserID" Type="Document" />
-      <Association Name="tbUser_Group" Member="Groups" ThisKey="UserID" OtherKey="CoachID" Type="Group" />
-      <Association Name="Role_tbUser" Member="Role" ThisKey="RoleID" OtherKey="RoleID" Type="Role" IsForeignKey="true" />
+      <Association Name="User_Document" Member="Documents" ThisKey="UserID" OtherKey="UserID" Type="Document" />
+      <Association Name="User_Group" Member="Groups" ThisKey="UserID" OtherKey="CoachID" Type="Group" />
+      <Association Name="Role_User" Member="Role" ThisKey="RoleID" OtherKey="RoleID" Type="Role" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

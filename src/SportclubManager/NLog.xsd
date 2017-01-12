@@ -706,7 +706,7 @@
           <xs:element name="connectionStringName" minOccurs="0" maxOccurs="1" type="xs:string" />
           <xs:element name="dbDatabase" minOccurs="0" maxOccurs="1" type="Layout" />
           <xs:element name="dbHost" minOccurs="0" maxOccurs="1" type="Layout" />
-          <xs:element name="dbPassword" minOccurs="0" maxOccurs="1" type="Layout" />
+          <xs:element name="dbpassword" minOccurs="0" maxOccurs="1" type="Layout" />
           <xs:element name="dbProvider" minOccurs="0" maxOccurs="1" type="xs:string" />
           <xs:element name="dbUserName" minOccurs="0" maxOccurs="1" type="Layout" />
           <xs:element name="keepConnection" minOccurs="0" maxOccurs="1" type="xs:boolean" />
@@ -725,7 +725,7 @@
         </xs:attribute>
         <xs:attribute name="connectionString" type="SimpleLayoutAttribute">
           <xs:annotation>
-            <xs:documentation>Connection string. When provided, it overrides the values specified in DBHost, DBUserName, DBPassword, DBDatabase.</xs:documentation>
+            <xs:documentation>Connection string. When provided, it overrides the values specified in DBHost, DBUserName, DBpassword, DBDatabase.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="connectionStringName" type="xs:string">
@@ -743,9 +743,9 @@
             <xs:documentation>Database host name. If the ConnectionString is not provided this value will be used to construct the "Server=" part of the connection string.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="dbPassword" type="SimpleLayoutAttribute">
+        <xs:attribute name="dbpassword" type="SimpleLayoutAttribute">
           <xs:annotation>
-            <xs:documentation>Database password. If the ConnectionString is not provided this value will be used to construct the "Password=" part of the connection string.</xs:documentation>
+            <xs:documentation>Database password. If the ConnectionString is not provided this value will be used to construct the "password=" part of the connection string.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="dbProvider" type="xs:string">
@@ -1493,7 +1493,7 @@
           <xs:element name="smtpServer" minOccurs="0" maxOccurs="1" type="Layout" />
           <xs:element name="smtpAuthentication" minOccurs="0" maxOccurs="1" type="NLog.Targets.SmtpAuthenticationMode" />
           <xs:element name="smtpUserName" minOccurs="0" maxOccurs="1" type="Layout" />
-          <xs:element name="smtpPassword" minOccurs="0" maxOccurs="1" type="Layout" />
+          <xs:element name="smtppassword" minOccurs="0" maxOccurs="1" type="Layout" />
           <xs:element name="enableSsl" minOccurs="0" maxOccurs="1" type="xs:boolean" />
           <xs:element name="smtpPort" minOccurs="0" maxOccurs="1" type="xs:integer" />
           <xs:element name="useSystemNetMailSettings" minOccurs="0" maxOccurs="1" type="xs:boolean" />
@@ -1595,9 +1595,9 @@
             <xs:documentation>Username used to connect to SMTP server (used when SmtpAuthentication is set to "basic").</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="smtpPassword" type="SimpleLayoutAttribute">
+        <xs:attribute name="smtppassword" type="SimpleLayoutAttribute">
           <xs:annotation>
-            <xs:documentation>Password used to authenticate against SMTP server (used when SmtpAuthentication is set to "basic").</xs:documentation>
+            <xs:documentation>password used to authenticate against SMTP server (used when SmtpAuthentication is set to "basic").</xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="enableSsl" type="xs:boolean">

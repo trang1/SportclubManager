@@ -178,15 +178,25 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Auth\AuthHttpModule.cs" />
+    <Compile Include="Auth\CustomAuthentification.cs" />
+    <Compile Include="Auth\IAuthentication.cs" />
+    <Compile Include="Auth\IUserIdentity.cs" />
+    <Compile Include="Auth\UserIdentity.cs" />
+    <Compile Include="Auth\UserProvider.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\SportclubManagerDataClasses.designer.cs">
+    <Compile Include="Models\LoginView.cs" />
+    <Compile Include="Models\SportclubManager.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SportclubManagerDataClasses.dbml</DependentUpon>
+      <DependentUpon>SportclubManager.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -206,9 +216,9 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Models\SportclubManagerDataClasses.dbml">
+    <Content Include="Models\SportclubManager.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>SportclubManagerDataClasses.designer.cs</LastGenOutput>
+      <LastGenOutput>SportclubManager.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
     <None Include="NLog.xsd">
@@ -234,15 +244,17 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\UserLogin.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -257,8 +269,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\SportclubManagerDataClasses.dbml.layout">
-      <DependentUpon>SportclubManagerDataClasses.dbml</DependentUpon>
+    <None Include="Models\SportclubManager.dbml.layout">
+      <DependentUpon>SportclubManager.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>

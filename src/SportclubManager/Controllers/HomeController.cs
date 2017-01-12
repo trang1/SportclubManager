@@ -8,11 +8,8 @@ using SportclubManager.Models;
 
 namespace SportclubManager.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        [Inject]
-        public SportclubManagerDataClassesDataContext Db { get; set; }
-
         public ActionResult Index()
         {
             return View();
@@ -21,7 +18,7 @@ namespace SportclubManager.Controllers
         public ActionResult About()
         {
             var roles = Db.Roles.ToList();
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Roles in this application:";
 
             return View(roles);
         }
@@ -31,6 +28,10 @@ namespace SportclubManager.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public ActionResult UserLogin()
+        {
+            return View(CurrentUser);
         }
     }
 }

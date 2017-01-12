@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>
+    @foreach (var role in Model)
+    {
+        <div class="item">
+            <span class="id">
+                @role.RoleID
+            </span>
+            <span class="name">
+                @role.RoleName
+            </span>
+        </div>
+    }
+</p>

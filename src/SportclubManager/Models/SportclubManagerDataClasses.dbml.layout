@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="SportclubManagerDataClasses">
+  <DataContextMoniker Name="/SportclubManagerDataClassesDataContext" />
+  <nestedChildShapes>
+    <classShape Id="a033dd7b-e361-4399-93ff-53c1df4cd269" absoluteBounds="0.625, 1.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/SportclubManagerDataClassesDataContext/Document" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e0b6fb54-1f85-4b4e-88cd-8cd3ce871586" absoluteBounds="0.64000000000000012, 1.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ca747d9e-3645-4269-be97-8fb3a9c739f9" absoluteBounds="0.5, 3.25, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/SportclubManagerDataClassesDataContext/Role" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0afedb6a-981d-41bf-9f62-3c57e2853b83" absoluteBounds="0.51500000000000012, 3.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="386cee68-370f-44ba-aeff-dec61c907d2a" absoluteBounds="8.25, 1.5, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/SportclubManagerDataClassesDataContext/Member" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3ecc13b8-e9e8-4a81-a692-00d56572a37c" absoluteBounds="8.265, 1.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f21f80aa-29a0-42cf-a687-b652e282e109" absoluteBounds="5.875, 1.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/SportclubManagerDataClassesDataContext/MemberEvidence" />
+      <nestedChildShapes>
+        <elementListCompartment Id="df384e60-8d4f-4ed9-8a07-d841f9d17be7" absoluteBounds="5.89, 1.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3f6a0498-43b8-4328-967e-e08c4a5ff86f" absoluteBounds="4.375, 4.375, 2, 1.3862939453125">
+      <DataClassMoniker Name="/SportclubManagerDataClassesDataContext/Group" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cb7af321-a9f1-45f1-919e-a9b295937fb1" absoluteBounds="4.3900000000000006, 4.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.375 : 4.59215413411458); (8.25 : 4.59215413411458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SportclubManagerDataClassesDataContext/Group/Group_Member" />
+      <nodes>
+        <classShapeMoniker Id="3f6a0498-43b8-4328-967e-e08c4a5ff86f" />
+        <classShapeMoniker Id="386cee68-370f-44ba-aeff-dec61c907d2a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 2.28929768880208); (7.875 : 2.28929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SportclubManagerDataClassesDataContext/Member/Member_MemberEvidence" />
+      <nodes>
+        <classShapeMoniker Id="386cee68-370f-44ba-aeff-dec61c907d2a" />
+        <classShapeMoniker Id="f21f80aa-29a0-42cf-a687-b652e282e109" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.125 : 4.375); (6.125 : 3.07859537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SportclubManagerDataClassesDataContext/Group/Group_MemberEvidence" />
+      <nodes>
+        <classShapeMoniker Id="3f6a0498-43b8-4328-967e-e08c4a5ff86f" />
+        <classShapeMoniker Id="f21f80aa-29a0-42cf-a687-b652e282e109" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="994d2d94-bd74-43fa-ba9b-a5d716fb6f04" absoluteBounds="3.25, 1.5, 2, 1.9631982421875">
+      <DataClassMoniker Name="/SportclubManagerDataClassesDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d8da679d-05b7-4001-9884-6a8d1c53044e" absoluteBounds="3.265, 1.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.25 : 2.28929768880208); (2.625 : 2.28929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SportclubManagerDataClassesDataContext/User/tbUser_Document" />
+      <nodes>
+        <classShapeMoniker Id="994d2d94-bd74-43fa-ba9b-a5d716fb6f04" />
+        <classShapeMoniker Id="a033dd7b-e361-4399-93ff-53c1df4cd269" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.5 : 3.88784962109375); (3.78125 : 3.88784962109375); (3.78125 : 3.4631982421875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SportclubManagerDataClassesDataContext/Role/Role_tbUser" />
+      <nodes>
+        <classShapeMoniker Id="ca747d9e-3645-4269-be97-8fb3a9c739f9" />
+        <classShapeMoniker Id="994d2d94-bd74-43fa-ba9b-a5d716fb6f04" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.8125 : 3.4631982421875); (4.8125 : 4.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SportclubManagerDataClassesDataContext/User/tbUser_Group" />
+      <nodes>
+        <classShapeMoniker Id="994d2d94-bd74-43fa-ba9b-a5d716fb6f04" />
+        <classShapeMoniker Id="3f6a0498-43b8-4328-967e-e08c4a5ff86f" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

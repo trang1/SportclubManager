@@ -9,7 +9,7 @@ using SportclubManager.Models;
 
 namespace SportclubManager.Controllers
 {
-    public class BaseController : Controller
+    public abstract class BaseController : Controller
     {
         [Inject]
         public SportclubManagerDataContext Db { get; set; }

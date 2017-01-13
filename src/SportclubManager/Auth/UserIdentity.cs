@@ -8,17 +8,17 @@ using SportclubManager.Models;
 namespace SportclubManager.Auth
 {
     /// <summary>
-    /// Реализация интерфейса для идентификации пользователя
+    /// Implementation of user identification
     /// </summary>
     public class UserIndentity : IUserIdentity
     {
         /// <summary>
-        /// Текщий пользователь
+        /// Current user
         /// </summary>
         public User User { get; set; }
 
         /// <summary>
-        /// Тип класса для пользователя
+        /// User class type
         /// </summary>
         public string AuthenticationType
         {
@@ -29,7 +29,7 @@ namespace SportclubManager.Auth
         }
 
         /// <summary>
-        /// Авторизован или нет
+        /// Is user authentificated
         /// </summary>
         public bool IsAuthenticated
         {
@@ -40,7 +40,7 @@ namespace SportclubManager.Auth
         }
 
         /// <summary>
-        /// Имя пользователя (уникальное) [у нас это счас Email]
+        /// Unique user name
         /// </summary>
         public string Name
         {
@@ -50,21 +50,20 @@ namespace SportclubManager.Auth
                 {
                     return $"{User.FirstName} {User.LastName}";
                 }
-                //иначе аноним
+                //default
                 return "anonym";
             }
         }
 
         /// <summary>
-        /// Инициализация по имени
+        /// Initialize by name
         /// </summary>
-        /// <param name="email">имя пользователя [email]</param>
-        public void Init(string email, SportclubManagerDataContext dataContext)
+        public void Init(string login, SportclubManagerDataContext dataContext)
         {
-            if (!string.IsNullOrEmpty(email))
+            if (!string.IsNullOrEmpty(login))
             {
                 User = dataContext.Users.FirstOrDefault(
-                        u => string.Compare(u.UserLogin, email, StringComparison.OrdinalIgnoreCase) == 0);
+                        u => string.Compare(u.UserLogin, login, StringComparison.OrdinalIgnoreCase) == 0);
             }
         }
     }

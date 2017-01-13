@@ -20,4 +20,10 @@ namespace SportclubManager.Models
             return hasRole;
         }
     }
+
+    public class Roles
+    {
+        public const string Administrator = "Administrator";
+        public const string Coach = "Coach";
+    }
 }

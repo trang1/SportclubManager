@@ -18,6 +18,14 @@ namespace SportclubManager.Controllers
                 var user = Auth.Login(loginView.Login, loginView.Password, loginView.IsPersistent);
                 if (user != null)
                 {
+                    switch (user.Role.RoleName)
+                    {
+                        case Roles.Administrator:
+                            return RedirectToAction("Index", "Admin");
+
+                        case Roles.Coach:
+                            return RedirectToAction("Index", "Coach");
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState["Password"].Errors.Add("Wrong login or password specified.");

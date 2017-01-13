@@ -22,16 +22,5 @@ namespace SportclubManager.Controllers
 
             return View(roles);
         }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-        public ActionResult UserLogin()
-        {
-            return View(CurrentUser);
-        }
     }
 }

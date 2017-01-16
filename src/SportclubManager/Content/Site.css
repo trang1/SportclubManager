@@ -37,23 +37,26 @@ textarea {
 .form-login .form-login-heading,
 .form-login .checkbox {
   margin-bottom: 10px;
+    text-align: center;
+    width: 280px;
 }
 .form-login .checkbox {
   font-weight: normal;
 }
-.form-login .form-control {
+.form-login .form-control-new {
   position: relative;
   height: auto;
+  width: 320px;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
   padding: 10px;
   font-size: 16px;
 }
-.form-login .form-control:focus {
+.form-login .form-control-new:focus {
   z-index: 2;
 }
-.form-login input[type="email"] {
+.form-login input[type="text"] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
@@ -62,4 +65,9 @@ textarea {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.form-login .btn-margin {
+  margin-right: 10px;
+    width: 280px;
 }

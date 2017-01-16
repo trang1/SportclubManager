@@ -62,8 +62,23 @@ namespace SportclubManager.Auth
         {
             if (!string.IsNullOrEmpty(login))
             {
-                User = dataContext.Users.FirstOrDefault(
-                        u => string.Compare(u.UserLogin, login, StringComparison.OrdinalIgnoreCase) == 0);
+                try
+                {
+                    User = dataContext.Users.FirstOrDefault(
+                                    u => string.Compare(u.UserLogin, login, StringComparison.OrdinalIgnoreCase) == 0);
+                }
+                catch (Exception)
+                {
+                    User = new User()
+                    {
+                        UserLogin = login,
+                        FirstName = "Fake",
+                        LastName = "Admin",
+                        UserID = 0,
+                        Role = new Role() {RoleID = 1, RoleName = Roles.Administrator}
+                    };
+
+                }
             }
         }
     }

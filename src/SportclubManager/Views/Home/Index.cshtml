@@ -3,13 +3,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="jumbotron">
+<div class="container">
     <h1>Sportclub Manager v0.1</h1>
     <p class="lead">Welcome to Sportclub Manager</p>
     <p>
         @if (Request.IsAuthenticated)
         {
-            @Html.ActionLink("About", "About", "Home", null, new { @class = "btn btn-primary btn-lg" })
+            @Html.ActionLink("Home", "Home", "Home", null, new { @class = "btn btn-info btn-lg" })
         }
         else
         {

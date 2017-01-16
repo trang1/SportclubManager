@@ -7,29 +7,33 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body class="body-content">
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
             @if (Request.IsAuthenticated)
             {
-                <i>You are currently logged as: </i>
-                <strong>@Html.Encode(User.Identity.Name)</strong>
-                 <b>@Html.ActionLink("Logout", "Logout", "Login", null, new { @class = "btn btn-default" })</b>
-                
-            }
-            @*else
+                <p class="navbar-text">
+                    <i>You are currently logged as: </i>
+                    <strong>@Html.Encode(User.Identity.Name)</strong>
+                </p>
+                <b>@Html.ActionLink("Logout", "Logout", "Login", null, new {@class = "btn btn-default btn-sm navbar-btn"})</b>
+
+            }@*else
             {
                 <b>@Html.ActionLink("Login", "Index", "Login", null, new { @class = "btn btn-primary btn-lg" })</b>
-            }*@
-        </div>
+            }*@</div>
     </div>
 </div>
 
 
-            @RenderBody()
+@RenderBody()
 
-            @Scripts.Render("~/bundles/jquery")
-            @RenderSection("scripts", required: false)
+@Scripts.Render("~/bundles/jquery")
+@RenderSection("scripts", required: false)
+
+<footer class="modal-footer">
+    &copy; 2017, Infolab
+</footer>
 </body>
 </html>

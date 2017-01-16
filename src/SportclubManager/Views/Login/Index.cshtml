@@ -3,36 +3,22 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Please log in</h2>
-@using (Html.BeginForm("Index", "Login", FormMethod.Post, new
-{
-    @class = "form-horizontal"
-}))
-{
-    <fieldset>
-        <div class="control-group">
-            <label class="control-label" for="Login">
-                Login
-            </label>
-            <div class="controls">
-                @Html.TextBox("Login", Model.Login, new { @class = "input-lg" })
-                <p class="help-block">Enter your login</p>
-                @Html.ValidationMessage("Login")
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="Password">
-                Password
-            </label>
-            <div class="controls">
-                @Html.Password("Password", Model.Password, new { @class = "input-lg" })
-                @Html.ValidationMessage("Password")
-            </div>
-        </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">
-                Enter
-            </button>
-        </div>
-    </fieldset>
-}
+<div class="container">
+    @using (Html.BeginForm("Index", "Login", FormMethod.Post, new
+    {
+        @class = "form-login",
+        @role = "form"
+    }))
+    {
+        <h2 class="form-login-heading">Please log in</h2>
+                    @Html.TextBox("Login", Model.Login, new { @class = "form-control", @placeholder="Login" })
+                    @Html.ValidationMessage("Login")
+        <p></p>
+                    @Html.Password("Password", Model.Password, new { @class = "form-control", @placeholder="Password" })
+                    @Html.ValidationMessage("Password")
+        <p></p>
+                <button type="submit" class="btn btn-lg btn-primary btn-block">
+                    Enter
+                </button>
+    }
+</div>

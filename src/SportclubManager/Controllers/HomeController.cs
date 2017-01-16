@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Ninject;
+using SportclubManager.Auth;
 using SportclubManager.Models;
 
 namespace SportclubManager.Controllers
@@ -15,12 +16,21 @@ namespace SportclubManager.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Home()
         {
-            var roles = Db.Roles.ToList();
-            ViewBag.Message = "Roles in this application:";
+            if (CurrentUser != null)
+            {
+                switch (CurrentUser.Role.RoleName)
+                {
+                    case Roles.Administrator:
+                        return RedirectToAction("Index", "Admin");
 
-            return View(roles);
+                    case Roles.Coach:
+                        return RedirectToAction("Index", "Coach");
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

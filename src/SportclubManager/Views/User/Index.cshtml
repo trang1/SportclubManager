@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IList<SportclubManager.Models.User>
+
+<h2 align="center">Users</h2>
+
+<table class="table table-bordered table-hover">
+    @if (Model != null && Model.Count > 0)
+    {
+        <thead>
+        <tr>
+            <td>
+                <b>First Name</b>
+            </td>
+            <td>
+                <b>Last Name</b>
+            </td>
+            <td>
+                <b>Login</b>
+            </td>
+            <td>
+                <b>Role</b>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+         @foreach (var user in Model)
+         {
+             <tr onclick="location.href = '@(Url.Action("ShowProfile", "User", new { UserId = user.UserID }))'">
+                 <td>
+                     @user.FirstName
+                 </td>
+                 <td>
+                     @user.LastName
+                 </td>
+                 <td>
+                     @user.UserLogin
+                 </td>
+                 <td>
+                     @user.Role.RoleName
+                 </td>
+             </tr>
+        }
+        </tbody>
+    }
+</table>

@@ -15,15 +15,19 @@ namespace SportclubManager.Controllers
             var users = Db.Users.OrderBy(u => u.UserID).ToList();
             return View(users);
         }
-
-        public ActionResult EditUser()
+        
+        public ActionResult Info(int? userId)
         {
-            return View(CurrentUser);
+            var user = Db.Users.FirstOrDefault(u => u.UserID == userId);
+            if(userId == -1)
+                user = new User() {UserID = -1};
+
+            return View(user ?? CurrentUser);
         }
 
-        public ActionResult ShowProfile(int userId)
+        public ActionResult Save()
         {
-            return View(userId);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -330,6 +330,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Coach\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

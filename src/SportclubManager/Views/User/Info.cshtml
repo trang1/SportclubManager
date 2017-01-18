@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model SportclubManager.Models.User
+
+<div class="container" align="center">
+    <h2>User profile</h2>
+    @using (Html.BeginForm("Save", "User", FormMethod.Post, new { @class = "form-login" }))
+    {
+        @Html.TextBox("First name", Model?.FirstName, new { @class = "form-control", @placeholder = "First name" })
+        @Html.ValidationMessage("FirstName")
+        <p></p>
+        @Html.Password("Last name", Model?.LastName, new { @class = "form-control", @placeholder = "Last name" })
+        @Html.ValidationMessage("LastName")
+        <p></p>
+        <button type="submit" class="btn btn-lg btn-primary btn-block btn-margin">
+            Enter
+        </button>
+    }
+</div>

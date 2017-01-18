@@ -6,7 +6,9 @@
 @model IList<SportclubManager.Models.User>
 
 <h2 align="center">Users</h2>
-
+<p>
+    @Html.ActionLink("Create New", "Info", "User", new {userId = -1}, null)
+</p>
 <table class="table table-bordered table-hover">
     @if (Model != null && Model.Count > 0)
     {
@@ -29,7 +31,7 @@
         <tbody>
          @foreach (var user in Model)
          {
-             <tr onclick="location.href = '@(Url.Action("ShowProfile", "User", new { UserId = user.UserID }))'">
+             <tr onclick="location.href = '@(Url.Action("Info", "User", new { userId = user.UserID }))'">
                  <td>
                      @user.FirstName
                  </td>

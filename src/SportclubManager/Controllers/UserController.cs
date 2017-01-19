@@ -21,12 +21,13 @@ namespace SportclubManager.Controllers
             var user = Db.Users.FirstOrDefault(u => u.UserID == userId);
             if(userId == -1)
                 user = new User() {UserID = -1};
-
             return View(user ?? CurrentUser);
         }
 
-        public ActionResult Save()
+        [HttpPost]
+        public ActionResult Save(User user)
         {
+            if (user == null) ;
             return RedirectToAction("Index");
         }
     }

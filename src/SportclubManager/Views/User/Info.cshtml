@@ -9,14 +9,45 @@
     <h2>User profile</h2>
     @using (Html.BeginForm("Save", "User", FormMethod.Post, new { @class = "form-login" }))
     {
-        @Html.TextBox("First name", Model?.FirstName, new { @class = "form-control", @placeholder = "First name" })
-        @Html.ValidationMessage("FirstName")
-        <p></p>
-        @Html.Password("Last name", Model?.LastName, new { @class = "form-control", @placeholder = "Last name" })
-        @Html.ValidationMessage("LastName")
-        <p></p>
-        <button type="submit" class="btn btn-lg btn-primary btn-block btn-margin">
-            Enter
-        </button>
+        <div class="container" align="left">
+            <span>First Name</span>
+            @Html.TextBox("Firstname", Model?.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessage("FirstName")
+            <p></p>
+            <span>Last Name</span>
+            @Html.TextBox("Lastname", Model?.LastName, new { @class = "form-control" })
+            @Html.ValidationMessage("LastName")
+            <p></p>
+            <span>User login</span>
+            @Html.TextBox("Userlogin", Model?.UserLogin, new { @class = "form-control" })
+            @Html.ValidationMessage("UserLogin")
+            <p></p>
+
+            @if (Model?.UserID == -1)
+            {
+            <span>Password</span>
+            @Html.Password("UserPassword", Model?.UserPassword, new { @class = "form-control" })
+            @Html.ValidationMessage("Password")
+            <p></p>
+            }
+
+            <span>Role</span>
+            @Html.DropDownListFor(n=>n.SelectedRoleValue, Model.Roles, "Please select a role", new { @class = "form-control" })
+            @Html.ValidationMessage("Role")
+            <p></p>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <button type="submit" class="btn btn-success">
+                    Save changes
+                </button>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
+                <button class="btn btn-danger" onclick='window.history.back();'>
+                    Cancel editing
+                </button>
+            </div>
+        </div>
     }
 </div>

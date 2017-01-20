@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Ninject;
 using Ninject.Web.Mvc;
+using SportclubManager.Auth;
 
 namespace SportclubManager.Models
 {
@@ -44,6 +45,20 @@ namespace SportclubManager.Models
                 var role = db.Roles.FirstOrDefault(r => r.RoleID == Convert.ToInt32(value));
                 Role = role;
             }
+        }
+
+        public int CurrentUserId
+        {
+            get
+            {
+                var auth = DependencyResolver.Current.GetService<IAuthentication>();
+                return ((IUserIdentity)auth.CurrentUser.Identity).User.UserID;
+            }
+        }
+
+        public bool IsCoach
+        {
+            get { return Role != null && Role.RoleName == Models.Roles.Coach; }
         }
     }
 

@@ -7,32 +7,42 @@
 
 <div class="container" align="center">
     <h2>User profile</h2>
+    @{
+        var htmlAttributes = new Dictionary<string, object> { { "class", "form-control" } };
+        if (Model != null && Model.IsCoach)
+        {
+            htmlAttributes.Add("disabled", "disabled");
+        }
+    }
     @using (Html.BeginForm("Save", "User", FormMethod.Post, new { @class = "form-login" }))
     {
         <div class="container" align="left">
+            <div hidden>
+                @Html.TextBox("UserID", Model?.UserID, new { @class = "form-control" })
+            </div>
             <span>First Name</span>
-            @Html.TextBox("Firstname", Model?.FirstName, new { @class = "form-control" })
+            @Html.TextBox("Firstname", Model?.FirstName, new {@class = "form-control"})
             @Html.ValidationMessage("FirstName")
             <p></p>
             <span>Last Name</span>
-            @Html.TextBox("Lastname", Model?.LastName, new { @class = "form-control" })
+            @Html.TextBox("Lastname", Model?.LastName, new {@class = "form-control"})
             @Html.ValidationMessage("LastName")
             <p></p>
             <span>User login</span>
-            @Html.TextBox("Userlogin", Model?.UserLogin, new { @class = "form-control" })
+            @Html.TextBox("Userlogin", Model?.UserLogin, htmlAttributes)
             @Html.ValidationMessage("UserLogin")
             <p></p>
 
-            @if (Model?.UserID == -1)
+            @if (Model?.UserID == -1 || Model?.UserID == Model?.CurrentUserId)
             {
-            <span>Password</span>
-            @Html.Password("UserPassword", Model?.UserPassword, new { @class = "form-control" })
-            @Html.ValidationMessage("Password")
-            <p></p>
+                <span>Password</span>
+                @Html.Password("UserPassword", Model?.UserPassword, new {@class = "form-control"})
+                @Html.ValidationMessage("Password")
+                <p></p>
             }
 
             <span>Role</span>
-            @Html.DropDownListFor(n=>n.SelectedRoleValue, Model.Roles, "Please select a role", new { @class = "form-control" })
+            @Html.DropDownListFor(n => n.SelectedRoleValue, Model?.Roles, "Please select a role", htmlAttributes)
             @Html.ValidationMessage("Role")
             <p></p>
         </div>

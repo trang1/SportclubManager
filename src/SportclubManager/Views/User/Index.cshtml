@@ -26,6 +26,9 @@
             <td>
                 <b>Role</b>
             </td>
+            <td>
+                
+            </td>
         </tr>
         </thead>
         <tbody>
@@ -43,6 +46,12 @@
                  </td>
                  <td>
                      @user.Role.RoleName
+                 </td>
+                 <td>
+                     @if (user.UserID != user.CurrentUserId)
+                     {
+                         @Html.ActionLink("Delete", "Delete", new {userId = user.UserID})
+                     }
                  </td>
              </tr>
         }

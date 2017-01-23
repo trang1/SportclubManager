@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model SportclubManager.Models.Group
+
+<div class="container" align="center">
+    <h2>Group information</h2>
+
+    @using (Html.BeginForm("Save", "Group", FormMethod.Post, new { @class = "form-login" }))
+    {
+        <div class="container" align="left">
+            <div hidden>
+                @Html.TextBox("GroupID", Model?.GroupID, new { @class = "form-control" })
+            </div>
+            <span>Group Name</span>
+            @Html.TextBox("GroupName", Model?.GroupName, new { @class = "form-control" })
+            @Html.ValidationMessage("GroupName")
+            <p></p>
+
+            <span>Coach</span>
+            @Html.DropDownListFor(n => n.SelectedCoachValue, Model?.Coaches, "Please select a coach", new { @class = "form-control" })
+            @Html.ValidationMessage("Coach")
+            <p></p>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <button type="submit" class="btn btn-success">
+                    Save changes
+                </button>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
+                <button class="btn btn-danger" onclick='window.history.back();'>
+                    Cancel editing
+                </button>
+            </div>
+        </div>
+    }
+</div>
+

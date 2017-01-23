@@ -41,13 +41,13 @@ namespace SportclubManager.Controllers
                         cachedUser.FirstName = user.FirstName;
                         cachedUser.LastName = user.LastName;
 
-                        if (!cachedUser.IsCoach)
+                        if (!CurrentUser.IsCoach)
                             cachedUser.UserLogin = user.UserLogin;
 
-                        if (cachedUser.UserID == cachedUser.CurrentUserId)
+                        if (cachedUser.UserID == CurrentUser.UserID)
                             cachedUser.UserPassword = user.UserPassword;
 
-                        if (!cachedUser.IsCoach)
+                        if (!CurrentUser.IsCoach)
                             cachedUser.Role = Db.Roles.FirstOrDefault(r => r.RoleID == int.Parse(user.SelectedRoleValue));
                     }
                 }

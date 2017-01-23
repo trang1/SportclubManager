@@ -48,7 +48,7 @@ namespace SportclubManager.Auth
             {
                 if (User != null)
                 {
-                    return $"{User.FirstName} {User.LastName}";
+                    return User.FullName;
                 }
                 //default
                 return "anonym";

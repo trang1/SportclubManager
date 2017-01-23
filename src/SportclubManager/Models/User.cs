@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -33,6 +34,32 @@ namespace SportclubManager.Models
             }
         }
 
+        public MultiSelectList GroupList
+        {
+            get
+            {
+                var db = DependencyResolver.Current.GetService<SportclubManagerDataContext>();
+                var groups = db.Groups.OrderBy(g=>g.GroupName).ToList();
+                return new MultiSelectList(groups, "GroupID", "GroupName");
+            }
+        }
+
+        public List<Group> SelectedGroups
+        {
+            get
+            {
+                return Groups.ToList(); 
+            }
+            set
+            {
+                var db = DependencyResolver.Current.GetService<SportclubManagerDataContext>();
+                var selectedIds = value.Select(g => g.GroupID).ToList();
+                var groups = db.Groups.Where(g => selectedIds.Contains(g.GroupID)).ToList();
+                groups.ForEach(g=>g.CoachID = UserID);
+                db.Groups.Context.SubmitChanges();
+            }
+        } 
+
         public string SelectedRoleValue
         {
             get
@@ -47,18 +74,23 @@ namespace SportclubManager.Models
             }
         }
 
-        public int CurrentUserId
+        public User CurrentUser
         {
             get
             {
                 var auth = DependencyResolver.Current.GetService<IAuthentication>();
-                return ((IUserIdentity)auth.CurrentUser.Identity).User.UserID;
+                return ((IUserIdentity)auth.CurrentUser.Identity).User;
             }
         }
 
         public bool IsCoach
         {
             get { return Role != null && Role.RoleName == Models.Roles.Coach; }
+        }
+
+        public string FullName
+        {
+            get { return $"{FirstName} {LastName}"; }
         }
     }
 

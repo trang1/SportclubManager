@@ -48,7 +48,7 @@
                      @user.Role.RoleName
                  </td>
                  <td>
-                     @if (user.UserID != user.CurrentUserId)
+                     @if (user.UserID != user.CurrentUser.UserID)
                      {
                          @Html.ActionLink("Delete", "Delete", new {userId = user.UserID})
                      }

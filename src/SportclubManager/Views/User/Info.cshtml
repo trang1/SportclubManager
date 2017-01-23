@@ -9,16 +9,16 @@
     <h2>User profile</h2>
     @{
         var htmlAttributes = new Dictionary<string, object> { { "class", "form-control" } };
-        if (Model != null && Model.IsCoach)
+        if (Model != null && Model.CurrentUser.IsCoach)
         {
             htmlAttributes.Add("disabled", "disabled");
         }
     }
-    @using (Html.BeginForm("Save", "User", FormMethod.Post, new { @class = "form-login" }))
+    @using (Html.BeginForm("Save", "User", FormMethod.Post, new {@class = "form-login"}))
     {
         <div class="container" align="left">
             <div hidden>
-                @Html.TextBox("UserID", Model?.UserID, new { @class = "form-control" })
+                @Html.TextBox("UserID", Model?.UserID, new {@class = "form-control"})
             </div>
             <span>First Name</span>
             @Html.TextBox("Firstname", Model?.FirstName, new {@class = "form-control"})
@@ -33,7 +33,7 @@
             @Html.ValidationMessage("UserLogin")
             <p></p>
 
-            @if (Model?.UserID == -1 || Model?.UserID == Model?.CurrentUserId)
+            @if (Model?.UserID == -1 || Model?.UserID == Model?.CurrentUser.UserID)
             {
                 <span>Password</span>
                 @Html.Password("UserPassword", Model?.UserPassword, new {@class = "form-control"})
@@ -44,6 +44,11 @@
             <span>Role</span>
             @Html.DropDownListFor(n => n.SelectedRoleValue, Model?.Roles, "Please select a role", htmlAttributes)
             @Html.ValidationMessage("Role")
+            <p></p>
+            
+            <span>Groups</span>
+            @Html.ListBoxFor(l=>l.SelectedGroups, Model?.GroupList, htmlAttributes)
+            @Html.ValidationMessage("Group")
             <p></p>
         </div>
         <div class="row">

@@ -3,11 +3,11 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model IList<SportclubManager.Models.Group>
+@model IList<SportclubManager.Models.Document>
 
-<h2 align="center">Groups</h2>
+<h2 align="center">Documents</h2>
 <p>
-    @Html.ActionLink("Create New", "Info", "Group", new { groupId = -1 }, null)
+    @Html.ActionLink("Create New", "Info", "Document", new { docId = -1 }, null)
 </p>
 <table class="table table-bordered table-hover">
     @if (Model != null && Model.Count > 0)
@@ -15,26 +15,26 @@
         <thead>
             <tr>
                 <td>
-                    <b>Group Name</b>
+                    <b>Document Name</b>
                 </td>
                 <td>
-                    <b>Coach</b>
+                    <b>User name</b>
                 </td>
                 <td></td>
             </tr>
         </thead>
         <tbody>
-            @foreach (var group in Model)
+            @foreach (var doc in Model)
             {
-                <tr onclick="location.href = '@(Url.Action("Info", "Group", new { groupId = group.GroupID }))'">
+                <tr onclick="location.href = '@(Url.Action("Info", "Document", new { docId = doc.DocumentID }))'">
                     <td>
-                        @group.GroupName
+                        @doc.DocumentName
                     </td>
                     <td>
-                        @group.CoachFullName
+                        @doc.UserFullName
                     </td>
                     <td>
-                        @Html.ActionLink("Delete", "Delete", new { userId = group.GroupID })
+                        @Html.ActionLink("Delete", "Delete", new { docId = doc.DocumentID })
                     </td>
                 </tr>
             }
@@ -44,3 +44,5 @@
 <p>
     @Html.ActionLink("Home", "Home", "Home", null, new { @class = "btn btn-info btn-lg" })
 </p>
+
+

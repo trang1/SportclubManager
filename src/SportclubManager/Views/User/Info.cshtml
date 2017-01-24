@@ -45,11 +45,14 @@
             @Html.DropDownListFor(n => n.SelectedRoleValue, Model?.Roles, "Please select a role", htmlAttributes)
             @Html.ValidationMessage("Role")
             <p></p>
-            
-            <span>Groups</span>
-            @Html.ListBoxFor(l=>l.SelectedGroups, Model?.GroupList, htmlAttributes)
-            @Html.ValidationMessage("Group")
-            <p></p>
+
+            @if (Model.IsCoach)
+            {
+                <span>Groups</span>
+                @Html.ListBoxFor(l => l.SelectedGroups, Model?.GroupList, htmlAttributes)
+                @Html.ValidationMessage("Groups")
+                <p></p>
+            }
         </div>
         <div class="row">
             <div class="col-md-5">

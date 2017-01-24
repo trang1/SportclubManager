@@ -27,34 +27,38 @@
                 <b>Role</b>
             </td>
             <td>
-                
+
             </td>
         </tr>
         </thead>
         <tbody>
-         @foreach (var user in Model)
-         {
-             <tr onclick="location.href = '@(Url.Action("Info", "User", new { userId = user.UserID }))'">
-                 <td>
-                     @user.FirstName
-                 </td>
-                 <td>
-                     @user.LastName
-                 </td>
-                 <td>
-                     @user.UserLogin
-                 </td>
-                 <td>
-                     @user.Role.RoleName
-                 </td>
-                 <td>
-                     @if (user.UserID != user.CurrentUser.UserID)
-                     {
-                         @Html.ActionLink("Delete", "Delete", new {userId = user.UserID})
-                     }
-                 </td>
-             </tr>
+        @foreach (var user in Model)
+        {
+            <tr onclick="location.href = '@(Url.Action("Info", "User", new {userId = user.UserID}))'">
+                <td>
+                    @user.FirstName
+                </td>
+                <td>
+                    @user.LastName
+                </td>
+                <td>
+                    @user.UserLogin
+                </td>
+                <td>
+                    @user.Role.RoleName
+                </td>
+                <td>
+                    @if (user.UserID != user.CurrentUser.UserID)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new {userId = user.UserID})
+                    }
+                </td>
+            </tr>
         }
         </tbody>
     }
 </table>
+<p>
+    @Html.ActionLink("Home", "Home", "Home", null, new { @class = "btn btn-info btn-lg" })
+</p>
+

@@ -44,17 +44,16 @@ namespace SportclubManager.Models
             }
         }
 
-        public List<Group> SelectedGroups
+        public List<string> SelectedGroups
         {
             get
             {
-                return Groups.ToList(); 
+                return Groups.Select(g=>g.GroupID.ToString()).ToList(); 
             }
             set
             {
                 var db = DependencyResolver.Current.GetService<SportclubManagerDataContext>();
-                var selectedIds = value.Select(g => g.GroupID).ToList();
-                var groups = db.Groups.Where(g => selectedIds.Contains(g.GroupID)).ToList();
+                var groups = db.Groups.Where(g => value.Contains(g.GroupID.ToString())).ToList();
                 groups.ForEach(g=>g.CoachID = UserID);
                 db.Groups.Context.SubmitChanges();
             }

@@ -35,11 +35,11 @@ namespace SportclubManager.Controllers
                 }
                 else
                 {
-                    var cachedUser = Db.Groups.First(u => u.GroupID == @group.GroupID);
-                    if (cachedUser != null)
+                    var cachedGroup = Db.Groups.First(u => u.GroupID == @group.GroupID);
+                    if (cachedGroup != null)
                     {
-                        cachedUser.GroupName = @group.GroupName;
-                        cachedUser.User = Db.Users.FirstOrDefault(r => r.UserID == int.Parse(@group.SelectedCoachValue));
+                        cachedGroup.GroupName = @group.GroupName;
+                        cachedGroup.User = Db.Users.FirstOrDefault(r => r.UserID == int.Parse(@group.SelectedCoachValue));
                     }
                 }
                 Db.SubmitChanges();
@@ -51,12 +51,12 @@ namespace SportclubManager.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Delete(int userid)
+        public ActionResult Delete(int groupId)
         {
-            var cachedUser = Db.Users.First(u => u.UserID == userid);
-            if (cachedUser != null)
+            var cachedGroup = Db.Groups.First(g => g.GroupID == groupId);
+            if (cachedGroup != null)
             {
-                Db.Users.DeleteOnSubmit(cachedUser);
+                Db.Groups.DeleteOnSubmit(cachedGroup);
                 Db.SubmitChanges();
             }
             return RedirectToAction("Index");

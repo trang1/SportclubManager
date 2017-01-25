@@ -125,7 +125,7 @@ namespace SportclubManager.Controllers
                 //Debug.WriteLine(e.Message);
             }
 
-            return null;
+            return new EmptyResult();
         }
     }
 }

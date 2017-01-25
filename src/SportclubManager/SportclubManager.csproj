@@ -312,7 +312,7 @@
     <Content Include="Views\Document\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\uploads\documents\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

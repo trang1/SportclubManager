@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -36,6 +37,26 @@ namespace SportclubManager.Controllers
                 if (document.DocumentID == -1)
                 {
                     Db.Documents.InsertOnSubmit(document);
+
+                    document.UserID = CurrentUser.UserID;
+
+                    if (Request.Files.Count > 0)
+                    {
+                        var file = Request.Files[0];
+                        if (file.ContentLength > 0)
+                        {
+                            // extract only the filename
+                            var fileName = Path.GetFileName(file.FileName);
+
+                            // store the file inside ~/App_Data/uploads/documents folder
+                            const string location = "~/App_Data/uploads/documents";
+
+                            var path = Path.Combine(Server.MapPath(location), fileName);
+                            file.SaveAs(path);
+
+                            document.DocumentLocation = location + "/" + fileName;
+                        }
+                    }
                 }
                 else
                 {
@@ -43,7 +64,24 @@ namespace SportclubManager.Controllers
                     if (cachedDoc != null)
                     {
                         cachedDoc.DocumentName = document.DocumentName;
-                        cachedDoc.DocumentLocation = document.DocumentLocation;
+                        cachedDoc.UserID = CurrentUser.UserID;
+
+                        if (Request.Files.Count > 0)
+                        {
+                            var file = Request.Files[0];
+                            if (file.ContentLength > 0)
+                            {
+                                // extract only the filename
+                                var fileName = Path.GetFileName(file.FileName);
+                                // store the file inside ~/App_Data/uploads/documents folder
+                                const string location = "~/App_Data/uploads/documents";
+
+                                var path = Path.Combine(Server.MapPath(location), fileName);
+                                file.SaveAs(path);
+
+                                cachedDoc.DocumentLocation = location + "/" + fileName;
+                            }
+                        }
                     }
                 }
                 Db.SubmitChanges();
@@ -64,6 +102,30 @@ namespace SportclubManager.Controllers
                 Db.SubmitChanges();
             }
             return RedirectToAction("Index");
+        }
+
+        public ActionResult OpenFile(string location)
+        {
+            return File(Server.MapPath(location), "application/text", Path.GetFileName(location));
+        }
+
+        public ActionResult DeleteFile(string location)
+        {
+            var path = Server.MapPath(location);
+            try //Maybe error could happen like Access denied or Presses Already User used
+            {
+                System.IO.File.Delete(path);
+
+                var docs = Db.Documents.Where(d => d.DocumentLocation == location).ToList();
+                docs.ForEach(d=>d.DocumentLocation = null);
+                Db.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                //Debug.WriteLine(e.Message);
+            }
+
+            return null;
         }
     }
 }

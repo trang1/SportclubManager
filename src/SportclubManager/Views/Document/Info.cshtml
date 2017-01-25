@@ -7,37 +7,79 @@
 
 <div class="container" align="center">
     <h2>Document information</h2>
-
-    @using (Html.BeginForm("Save", "Document", FormMethod.Post, new { @class = "form-login" }))
+    @{
+    AjaxOptions options = new AjaxOptions();
+    options.HttpMethod = "POST";
+    options.InsertionMode = InsertionMode.InsertAfter;
+    }
+    @using (Ajax.BeginForm("Save", "Document", FormMethod.Post, options, new {@class = "form-login", enctype = "multipart/form-data"}))
     {
         <div class="container" align="left">
             <div hidden>
-                @Html.TextBox("DocumentID", Model?.DocumentID, new { @class = "form-control" })
+                @Html.TextBox("DocumentID", Model?.DocumentID, new {@class = "form-control"})
             </div>
             <span>Document Name</span>
-            @Html.TextBox("DocumentName", Model?.DocumentName, new { @class = "form-control" })
+            @Html.TextBox("DocumentName", Model?.DocumentName, new {@class = "form-control"})
             @Html.ValidationMessage("DocumentName")
             <p></p>
 
-            <span>Document Location</span>
-            @Html.TextBox("DocumentLocation", Model?.DocumentLocation, new { @class = "form-control" })
-            @Html.ValidationMessage("DocumentLocation")
-            <p></p>
-        </div>
-        <div class="row">
-            <div class="col-md-5">
-                <button type="submit" class="btn btn-success">
-                    Save changes
-                </button>
-            </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-5">
-                <button class="btn btn-danger" onclick='window.history.back();'>
-                    Cancel editing
-                </button>
-            </div>
+            @*<span>Document Location</span>
+                @Html.TextBox("DocumentLocation", Model?.DocumentLocation, new {@class = "form-control", disabled = "true"})
+                @Html.ValidationMessage("DocumentLocation")*@
+
+            @if (string.IsNullOrEmpty(Model?.DocumentLocation))
+            {
+                <p></p>
+                <input type="file" name="file" class="form-control"/>
+                <p></p>
+            }
+            else
+            {
+                <div class="row" id="cont">
+                    <div class="col-md-5">
+                        @*<button class="btn btn-block" onclick='openFile("@Model.DocumentLocation")'>
+                            Open file
+                        </button>*@
+                        @Ajax.ActionLink("Open file", "OpenFile", new {location = Model.DocumentLocation}, options)
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-5">
+                        @*<button class="btn btn-block" onclick='sendRequestToRemove("@Model.DocumentLocation")'>
+                            Delete file
+                        </button>*@
+                        @{
+                            var deleteOptions = new AjaxOptions();
+                            deleteOptions.HttpMethod = "POST";
+                            deleteOptions.InsertionMode = InsertionMode.InsertAfter;
+                            deleteOptions.OnComplete = "onComplete";
+                            deleteOptions.OnSuccess = "onComplete";
+                        }
+                        @Ajax.ActionLink("Delete file", "DeleteFile", new {location = Model.DocumentLocation}, deleteOptions)
+                    </div>
+                </div>
+            }
+                <script>
+                    function onComplete() {
+                        alert("YES!!!");
+                        window.history.back();
+                        window.reload();
+                    }
+                </script>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <button type="submit" class="btn btn-success">
+                            Save changes
+                        </button>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-5">
+                        <button class="btn btn-danger" onclick='window.history.back();'>
+                            Cancel editing
+                        </button>
+                    </div>
+                </div>
+            
         </div>
     }
 </div>
-
-

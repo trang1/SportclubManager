@@ -6,6 +6,20 @@
 
 @model SportclubManager.Models.Member
 
+<!-- jQuery UI CSS Reference -->
+<link href="@Url.Content("~/Content/themes/base/jquery-ui.min.css")" rel="stylesheet" />
+<!-- Required jQuery and jQuery UI Javascript references -->
+<script src="@Url.Content("~/Scripts/jquery-1.12.4.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")"></script>
+
+<!-- Code to wire up DatePicker -->
+<script type="text/javascript">
+    $(function() {
+        // This will make every element with the class "date-picker" into a DatePicker element
+        $('.date-picker').datepicker();
+    })
+</script>
+
 <div class="container" align="center">
     <h2>Member information</h2>
     @{
@@ -32,9 +46,45 @@
             @Html.ValidationMessage("LastName")
             <p></p>
 
-            @*<span>Document Location</span>
-                @Html.TextBox("DocumentLocation", Model?.DocumentLocation, new {@class = "form-control", disabled = "true"})
-                @Html.ValidationMessage("DocumentLocation")*@
+            <span>Date of birth</span>
+            @Html.TextBox("DOB", Model?.DOB, new { @class = "form-control ui-datepicker" })
+            @Html.ValidationMessage("DOB")
+            <p></p>
+
+            <span>Address</span>
+            @Html.TextBox("Address", Model?.Address, new { @class = "form-control" })
+            @Html.ValidationMessage("Address")
+            <p></p>
+
+            <span>Father's Name</span>
+            @Html.TextBox("Father", Model?.Father, new { @class = "form-control" })
+            @Html.ValidationMessage("Father")
+            <p></p>
+
+            <span>Father's Mail</span>
+            @Html.TextBox("FatherMail", Model?.FatherMail, new { @class = "form-control" })
+            @Html.ValidationMessage("FatherMail")
+            <p></p>
+
+            <span>Father's Phone Number</span>
+            @Html.TextBox("FatherPhoneNo", Model?.FatherPhoneNo, new { @class = "form-control" })
+            @Html.ValidationMessage("FatherPhoneNo")
+            <p></p>
+
+            <span>Mother's Name</span>
+            @Html.TextBox("Mother", Model?.Mother, new { @class = "form-control" })
+            @Html.ValidationMessage("Mother")
+            <p></p>
+
+            <span>Father's Mail</span>
+            @Html.TextBox("MotherMail", Model?.MotherMail, new { @class = "form-control" })
+            @Html.ValidationMessage("MotherMail")
+            <p></p>
+
+            <span>Mother's Phone Number</span>
+            @Html.TextBox("MotherPhoneNo", Model?.MotherPhoneNo, new { @class = "form-control" })
+            @Html.ValidationMessage("MotherPhoneNo")
+            <p></p>
 
             @if (string.IsNullOrEmpty(Model?.PhotoLocation))
             {
@@ -59,7 +109,14 @@
                         @Ajax.ActionLink("Delete photo", "DeletePhoto", new { location = Model.PhotoLocation }, options)
                     </div>
                 </div>
+                <p></p>
             }
+
+            <span>Is active</span>
+            @Html.CheckBox("IsActive", 
+                    Model.IsActive.GetValueOrDefault(false), new { @class = "form-control" })
+            @Html.ValidationMessage("IsActive")
+            <p></p>
 
             <div class="row">
                 <div class="col-md-5">

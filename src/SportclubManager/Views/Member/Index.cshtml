@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IList<SportclubManager.Models.Member>
+
+<h2 align="center">Members</h2>
+<p>
+    @Html.ActionLink("Create New", "Info", "Member", new { memberId = -1 }, null)
+</p>
+<table class="table table-bordered table-hover">
+    @if (Model != null && Model.Count > 0)
+    {
+        <thead>
+            <tr>
+                <td>
+                    <b>Member name</b>
+                </td>
+                <td>
+                    <b>Date of birth</b>
+                </td>
+                <td>
+                    <b>Group name</b>
+                </td>
+                <td>
+                    <b>Is active</b>
+                </td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model)
+            {
+                <tr onclick="location.href = '@(Url.Action("Info", "Member", new { memberId = member.MemberID }))'">
+                    <td>
+                        @member.FullName
+                    </td>
+                    <td>
+                        @member.DOB
+                    </td>
+                    <td>
+                        @member.Group.GroupName
+                    </td>
+                    <td>
+                        @member.IsActiveString
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { memberId = member.MemberID })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+<p>
+    @Html.ActionLink("Home", "Home", "Home", null, new { @class = "btn btn-info btn-lg" })
+</p>
+

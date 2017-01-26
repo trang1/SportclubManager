@@ -36,9 +36,6 @@ namespace SportclubManager.Models
     partial void InsertRole(Role instance);
     partial void UpdateRole(Role instance);
     partial void DeleteRole(Role instance);
-    partial void InsertMember(Member instance);
-    partial void UpdateMember(Member instance);
-    partial void DeleteMember(Member instance);
     partial void InsertMemberEvidence(MemberEvidence instance);
     partial void UpdateMemberEvidence(MemberEvidence instance);
     partial void DeleteMemberEvidence(MemberEvidence instance);
@@ -48,6 +45,9 @@ namespace SportclubManager.Models
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertMember(Member instance);
+    partial void UpdateMember(Member instance);
+    partial void DeleteMember(Member instance);
     #endregion
 		
 		public SportclubManagerDataContext() : 
@@ -96,14 +96,6 @@ namespace SportclubManager.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Member> Members
-		{
-			get
-			{
-				return this.GetTable<Member>();
-			}
-		}
-		
 		public System.Data.Linq.Table<MemberEvidence> MemberEvidences
 		{
 			get
@@ -125,6 +117,14 @@ namespace SportclubManager.Models
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Member> Members
+		{
+			get
+			{
+				return this.GetTable<Member>();
 			}
 		}
 	}
@@ -418,425 +418,6 @@ namespace SportclubManager.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tbMember")]
-	public partial class Member : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _MemberID;
-		
-		private string _FirstName;
-		
-		private string _LastName;
-		
-		private System.Nullable<System.DateTime> _DOB;
-		
-		private System.Nullable<int> _GroupID;
-		
-		private string _Mother;
-		
-		private string _Father;
-		
-		private string _FatherMail;
-		
-		private string _MotherMail;
-		
-		private string _Address;
-		
-		private string _FatherPhoneNo;
-		
-		private string _MotherPhoneNo;
-		
-		private System.Nullable<bool> _IsActive;
-		
-		private EntitySet<MemberEvidence> _MemberEvidences;
-		
-		private EntityRef<Group> _Group;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMemberIDChanging(int value);
-    partial void OnMemberIDChanged();
-    partial void OnFirstNameChanging(string value);
-    partial void OnFirstNameChanged();
-    partial void OnLastNameChanging(string value);
-    partial void OnLastNameChanged();
-    partial void OnDOBChanging(System.Nullable<System.DateTime> value);
-    partial void OnDOBChanged();
-    partial void OnGroupIDChanging(System.Nullable<int> value);
-    partial void OnGroupIDChanged();
-    partial void OnMotherChanging(string value);
-    partial void OnMotherChanged();
-    partial void OnFatherChanging(string value);
-    partial void OnFatherChanged();
-    partial void OnFatherMailChanging(string value);
-    partial void OnFatherMailChanged();
-    partial void OnMotherMailChanging(string value);
-    partial void OnMotherMailChanged();
-    partial void OnAddressChanging(string value);
-    partial void OnAddressChanged();
-    partial void OnFatherPhoneNoChanging(string value);
-    partial void OnFatherPhoneNoChanged();
-    partial void OnMotherPhoneNoChanging(string value);
-    partial void OnMotherPhoneNoChanged();
-    partial void OnIsActiveChanging(System.Nullable<bool> value);
-    partial void OnIsActiveChanged();
-    #endregion
-		
-		public Member()
-		{
-			this._MemberEvidences = new EntitySet<MemberEvidence>(new Action<MemberEvidence>(this.attach_MemberEvidences), new Action<MemberEvidence>(this.detach_MemberEvidences));
-			this._Group = default(EntityRef<Group>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int MemberID
-		{
-			get
-			{
-				return this._MemberID;
-			}
-			set
-			{
-				if ((this._MemberID != value))
-				{
-					this.OnMemberIDChanging(value);
-					this.SendPropertyChanging();
-					this._MemberID = value;
-					this.SendPropertyChanged("MemberID");
-					this.OnMemberIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="VarChar(50)")]
-		public string FirstName
-		{
-			get
-			{
-				return this._FirstName;
-			}
-			set
-			{
-				if ((this._FirstName != value))
-				{
-					this.OnFirstNameChanging(value);
-					this.SendPropertyChanging();
-					this._FirstName = value;
-					this.SendPropertyChanged("FirstName");
-					this.OnFirstNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="VarChar(50)")]
-		public string LastName
-		{
-			get
-			{
-				return this._LastName;
-			}
-			set
-			{
-				if ((this._LastName != value))
-				{
-					this.OnLastNameChanging(value);
-					this.SendPropertyChanging();
-					this._LastName = value;
-					this.SendPropertyChanged("LastName");
-					this.OnLastNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DOB", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DOB
-		{
-			get
-			{
-				return this._DOB;
-			}
-			set
-			{
-				if ((this._DOB != value))
-				{
-					this.OnDOBChanging(value);
-					this.SendPropertyChanging();
-					this._DOB = value;
-					this.SendPropertyChanged("DOB");
-					this.OnDOBChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GroupID", DbType="Int")]
-		public System.Nullable<int> GroupID
-		{
-			get
-			{
-				return this._GroupID;
-			}
-			set
-			{
-				if ((this._GroupID != value))
-				{
-					if (this._Group.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnGroupIDChanging(value);
-					this.SendPropertyChanging();
-					this._GroupID = value;
-					this.SendPropertyChanged("GroupID");
-					this.OnGroupIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mother", DbType="VarChar(100)")]
-		public string Mother
-		{
-			get
-			{
-				return this._Mother;
-			}
-			set
-			{
-				if ((this._Mother != value))
-				{
-					this.OnMotherChanging(value);
-					this.SendPropertyChanging();
-					this._Mother = value;
-					this.SendPropertyChanged("Mother");
-					this.OnMotherChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Father", DbType="VarChar(100)")]
-		public string Father
-		{
-			get
-			{
-				return this._Father;
-			}
-			set
-			{
-				if ((this._Father != value))
-				{
-					this.OnFatherChanging(value);
-					this.SendPropertyChanging();
-					this._Father = value;
-					this.SendPropertyChanged("Father");
-					this.OnFatherChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FatherMail", DbType="VarChar(100)")]
-		public string FatherMail
-		{
-			get
-			{
-				return this._FatherMail;
-			}
-			set
-			{
-				if ((this._FatherMail != value))
-				{
-					this.OnFatherMailChanging(value);
-					this.SendPropertyChanging();
-					this._FatherMail = value;
-					this.SendPropertyChanged("FatherMail");
-					this.OnFatherMailChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MotherMail", DbType="VarChar(100)")]
-		public string MotherMail
-		{
-			get
-			{
-				return this._MotherMail;
-			}
-			set
-			{
-				if ((this._MotherMail != value))
-				{
-					this.OnMotherMailChanging(value);
-					this.SendPropertyChanging();
-					this._MotherMail = value;
-					this.SendPropertyChanged("MotherMail");
-					this.OnMotherMailChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="VarChar(500)")]
-		public string Address
-		{
-			get
-			{
-				return this._Address;
-			}
-			set
-			{
-				if ((this._Address != value))
-				{
-					this.OnAddressChanging(value);
-					this.SendPropertyChanging();
-					this._Address = value;
-					this.SendPropertyChanged("Address");
-					this.OnAddressChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FatherPhoneNo", DbType="VarChar(50)")]
-		public string FatherPhoneNo
-		{
-			get
-			{
-				return this._FatherPhoneNo;
-			}
-			set
-			{
-				if ((this._FatherPhoneNo != value))
-				{
-					this.OnFatherPhoneNoChanging(value);
-					this.SendPropertyChanging();
-					this._FatherPhoneNo = value;
-					this.SendPropertyChanged("FatherPhoneNo");
-					this.OnFatherPhoneNoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MotherPhoneNo", DbType="VarChar(50)")]
-		public string MotherPhoneNo
-		{
-			get
-			{
-				return this._MotherPhoneNo;
-			}
-			set
-			{
-				if ((this._MotherPhoneNo != value))
-				{
-					this.OnMotherPhoneNoChanging(value);
-					this.SendPropertyChanging();
-					this._MotherPhoneNo = value;
-					this.SendPropertyChanged("MotherPhoneNo");
-					this.OnMotherPhoneNoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit")]
-		public System.Nullable<bool> IsActive
-		{
-			get
-			{
-				return this._IsActive;
-			}
-			set
-			{
-				if ((this._IsActive != value))
-				{
-					this.OnIsActiveChanging(value);
-					this.SendPropertyChanging();
-					this._IsActive = value;
-					this.SendPropertyChanged("IsActive");
-					this.OnIsActiveChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberEvidence", Storage="_MemberEvidences", ThisKey="MemberID", OtherKey="MemberID")]
-		public EntitySet<MemberEvidence> MemberEvidences
-		{
-			get
-			{
-				return this._MemberEvidences;
-			}
-			set
-			{
-				this._MemberEvidences.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Group_Member", Storage="_Group", ThisKey="GroupID", OtherKey="GroupID", IsForeignKey=true)]
-		public Group Group
-		{
-			get
-			{
-				return this._Group.Entity;
-			}
-			set
-			{
-				Group previousValue = this._Group.Entity;
-				if (((previousValue != value) 
-							|| (this._Group.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Group.Entity = null;
-						previousValue.Members.Remove(this);
-					}
-					this._Group.Entity = value;
-					if ((value != null))
-					{
-						value.Members.Add(this);
-						this._GroupID = value.GroupID;
-					}
-					else
-					{
-						this._GroupID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Group");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_MemberEvidences(MemberEvidence entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member = this;
-		}
-		
-		private void detach_MemberEvidences(MemberEvidence entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tbMemberEvidence")]
 	public partial class MemberEvidence : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -851,9 +432,9 @@ namespace SportclubManager.Models
 		
 		private System.Nullable<bool> _Present;
 		
-		private EntityRef<Member> _Member;
-		
 		private EntityRef<Group> _Group;
+		
+		private EntityRef<Member> _Member;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -871,8 +452,8 @@ namespace SportclubManager.Models
 		
 		public MemberEvidence()
 		{
-			this._Member = default(EntityRef<Member>);
 			this._Group = default(EntityRef<Group>);
+			this._Member = default(EntityRef<Member>);
 			OnCreated();
 		}
 		
@@ -964,40 +545,6 @@ namespace SportclubManager.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberEvidence", Storage="_Member", ThisKey="MemberID", OtherKey="MemberID", IsForeignKey=true)]
-		public Member Member
-		{
-			get
-			{
-				return this._Member.Entity;
-			}
-			set
-			{
-				Member previousValue = this._Member.Entity;
-				if (((previousValue != value) 
-							|| (this._Member.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Member.Entity = null;
-						previousValue.MemberEvidences.Remove(this);
-					}
-					this._Member.Entity = value;
-					if ((value != null))
-					{
-						value.MemberEvidences.Add(this);
-						this._MemberID = value.MemberID;
-					}
-					else
-					{
-						this._MemberID = default(int);
-					}
-					this.SendPropertyChanged("Member");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Group_MemberEvidence", Storage="_Group", ThisKey="GroupID", OtherKey="GroupID", IsForeignKey=true)]
 		public Group Group
 		{
@@ -1028,6 +575,40 @@ namespace SportclubManager.Models
 						this._GroupID = default(int);
 					}
 					this.SendPropertyChanged("Group");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tbMember_MemberEvidence", Storage="_Member", ThisKey="MemberID", OtherKey="MemberID", IsForeignKey=true)]
+		public Member Member
+		{
+			get
+			{
+				return this._Member.Entity;
+			}
+			set
+			{
+				Member previousValue = this._Member.Entity;
+				if (((previousValue != value) 
+							|| (this._Member.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Member.Entity = null;
+						previousValue.MemberEvidences.Remove(this);
+					}
+					this._Member.Entity = value;
+					if ((value != null))
+					{
+						value.MemberEvidences.Add(this);
+						this._MemberID = value.MemberID;
+					}
+					else
+					{
+						this._MemberID = default(int);
+					}
+					this.SendPropertyChanged("Member");
 				}
 			}
 		}
@@ -1065,9 +646,9 @@ namespace SportclubManager.Models
 		
 		private System.Nullable<int> _CoachID;
 		
-		private EntitySet<Member> _Members;
-		
 		private EntitySet<MemberEvidence> _MemberEvidences;
+		
+		private EntitySet<Member> _Members;
 		
 		private EntityRef<User> _User;
 		
@@ -1085,8 +666,8 @@ namespace SportclubManager.Models
 		
 		public Group()
 		{
-			this._Members = new EntitySet<Member>(new Action<Member>(this.attach_Members), new Action<Member>(this.detach_Members));
 			this._MemberEvidences = new EntitySet<MemberEvidence>(new Action<MemberEvidence>(this.attach_MemberEvidences), new Action<MemberEvidence>(this.detach_MemberEvidences));
+			this._Members = new EntitySet<Member>(new Action<Member>(this.attach_Members), new Action<Member>(this.detach_Members));
 			this._User = default(EntityRef<User>);
 			OnCreated();
 		}
@@ -1155,19 +736,6 @@ namespace SportclubManager.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Group_Member", Storage="_Members", ThisKey="GroupID", OtherKey="GroupID")]
-		public EntitySet<Member> Members
-		{
-			get
-			{
-				return this._Members;
-			}
-			set
-			{
-				this._Members.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Group_MemberEvidence", Storage="_MemberEvidences", ThisKey="GroupID", OtherKey="GroupID")]
 		public EntitySet<MemberEvidence> MemberEvidences
 		{
@@ -1178,6 +746,19 @@ namespace SportclubManager.Models
 			set
 			{
 				this._MemberEvidences.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Group_tbMember", Storage="_Members", ThisKey="GroupID", OtherKey="GroupID")]
+		public EntitySet<Member> Members
+		{
+			get
+			{
+				return this._Members;
+			}
+			set
+			{
+				this._Members.Assign(value);
 			}
 		}
 		
@@ -1235,18 +816,6 @@ namespace SportclubManager.Models
 			}
 		}
 		
-		private void attach_Members(Member entity)
-		{
-			this.SendPropertyChanging();
-			entity.Group = this;
-		}
-		
-		private void detach_Members(Member entity)
-		{
-			this.SendPropertyChanging();
-			entity.Group = null;
-		}
-		
 		private void attach_MemberEvidences(MemberEvidence entity)
 		{
 			this.SendPropertyChanging();
@@ -1254,6 +823,18 @@ namespace SportclubManager.Models
 		}
 		
 		private void detach_MemberEvidences(MemberEvidence entity)
+		{
+			this.SendPropertyChanging();
+			entity.Group = null;
+		}
+		
+		private void attach_Members(Member entity)
+		{
+			this.SendPropertyChanging();
+			entity.Group = this;
+		}
+		
+		private void detach_Members(Member entity)
 		{
 			this.SendPropertyChanging();
 			entity.Group = null;
@@ -1536,6 +1117,449 @@ namespace SportclubManager.Models
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tbMember")]
+	public partial class Member : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MemberID;
+		
+		private string _FirstName;
+		
+		private string _LastName;
+		
+		private System.Nullable<System.DateTime> _DOB;
+		
+		private System.Nullable<int> _GroupID;
+		
+		private string _Mother;
+		
+		private string _Father;
+		
+		private string _FatherMail;
+		
+		private string _MotherMail;
+		
+		private string _Address;
+		
+		private string _FatherPhoneNo;
+		
+		private string _MotherPhoneNo;
+		
+		private System.Nullable<bool> _IsActive;
+		
+		private string _PhotoLocation;
+		
+		private EntitySet<MemberEvidence> _MemberEvidences;
+		
+		private EntityRef<Group> _Group;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMemberIDChanging(int value);
+    partial void OnMemberIDChanged();
+    partial void OnFirstNameChanging(string value);
+    partial void OnFirstNameChanged();
+    partial void OnLastNameChanging(string value);
+    partial void OnLastNameChanged();
+    partial void OnDOBChanging(System.Nullable<System.DateTime> value);
+    partial void OnDOBChanged();
+    partial void OnGroupIDChanging(System.Nullable<int> value);
+    partial void OnGroupIDChanged();
+    partial void OnMotherChanging(string value);
+    partial void OnMotherChanged();
+    partial void OnFatherChanging(string value);
+    partial void OnFatherChanged();
+    partial void OnFatherMailChanging(string value);
+    partial void OnFatherMailChanged();
+    partial void OnMotherMailChanging(string value);
+    partial void OnMotherMailChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnFatherPhoneNoChanging(string value);
+    partial void OnFatherPhoneNoChanged();
+    partial void OnMotherPhoneNoChanging(string value);
+    partial void OnMotherPhoneNoChanged();
+    partial void OnIsActiveChanging(System.Nullable<bool> value);
+    partial void OnIsActiveChanged();
+    partial void OnPhotoLocationChanging(string value);
+    partial void OnPhotoLocationChanged();
+    #endregion
+		
+		public Member()
+		{
+			this._MemberEvidences = new EntitySet<MemberEvidence>(new Action<MemberEvidence>(this.attach_MemberEvidences), new Action<MemberEvidence>(this.detach_MemberEvidences));
+			this._Group = default(EntityRef<Group>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int MemberID
+		{
+			get
+			{
+				return this._MemberID;
+			}
+			set
+			{
+				if ((this._MemberID != value))
+				{
+					this.OnMemberIDChanging(value);
+					this.SendPropertyChanging();
+					this._MemberID = value;
+					this.SendPropertyChanged("MemberID");
+					this.OnMemberIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="VarChar(50)")]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this.OnFirstNameChanging(value);
+					this.SendPropertyChanging();
+					this._FirstName = value;
+					this.SendPropertyChanged("FirstName");
+					this.OnFirstNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="VarChar(50)")]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this.OnLastNameChanging(value);
+					this.SendPropertyChanging();
+					this._LastName = value;
+					this.SendPropertyChanged("LastName");
+					this.OnLastNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DOB", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DOB
+		{
+			get
+			{
+				return this._DOB;
+			}
+			set
+			{
+				if ((this._DOB != value))
+				{
+					this.OnDOBChanging(value);
+					this.SendPropertyChanging();
+					this._DOB = value;
+					this.SendPropertyChanged("DOB");
+					this.OnDOBChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GroupID", DbType="Int")]
+		public System.Nullable<int> GroupID
+		{
+			get
+			{
+				return this._GroupID;
+			}
+			set
+			{
+				if ((this._GroupID != value))
+				{
+					if (this._Group.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGroupIDChanging(value);
+					this.SendPropertyChanging();
+					this._GroupID = value;
+					this.SendPropertyChanged("GroupID");
+					this.OnGroupIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mother", DbType="VarChar(100)")]
+		public string Mother
+		{
+			get
+			{
+				return this._Mother;
+			}
+			set
+			{
+				if ((this._Mother != value))
+				{
+					this.OnMotherChanging(value);
+					this.SendPropertyChanging();
+					this._Mother = value;
+					this.SendPropertyChanged("Mother");
+					this.OnMotherChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Father", DbType="VarChar(100)")]
+		public string Father
+		{
+			get
+			{
+				return this._Father;
+			}
+			set
+			{
+				if ((this._Father != value))
+				{
+					this.OnFatherChanging(value);
+					this.SendPropertyChanging();
+					this._Father = value;
+					this.SendPropertyChanged("Father");
+					this.OnFatherChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FatherMail", DbType="VarChar(100)")]
+		public string FatherMail
+		{
+			get
+			{
+				return this._FatherMail;
+			}
+			set
+			{
+				if ((this._FatherMail != value))
+				{
+					this.OnFatherMailChanging(value);
+					this.SendPropertyChanging();
+					this._FatherMail = value;
+					this.SendPropertyChanged("FatherMail");
+					this.OnFatherMailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MotherMail", DbType="VarChar(100)")]
+		public string MotherMail
+		{
+			get
+			{
+				return this._MotherMail;
+			}
+			set
+			{
+				if ((this._MotherMail != value))
+				{
+					this.OnMotherMailChanging(value);
+					this.SendPropertyChanging();
+					this._MotherMail = value;
+					this.SendPropertyChanged("MotherMail");
+					this.OnMotherMailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="VarChar(500)")]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FatherPhoneNo", DbType="VarChar(50)")]
+		public string FatherPhoneNo
+		{
+			get
+			{
+				return this._FatherPhoneNo;
+			}
+			set
+			{
+				if ((this._FatherPhoneNo != value))
+				{
+					this.OnFatherPhoneNoChanging(value);
+					this.SendPropertyChanging();
+					this._FatherPhoneNo = value;
+					this.SendPropertyChanged("FatherPhoneNo");
+					this.OnFatherPhoneNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MotherPhoneNo", DbType="VarChar(50)")]
+		public string MotherPhoneNo
+		{
+			get
+			{
+				return this._MotherPhoneNo;
+			}
+			set
+			{
+				if ((this._MotherPhoneNo != value))
+				{
+					this.OnMotherPhoneNoChanging(value);
+					this.SendPropertyChanging();
+					this._MotherPhoneNo = value;
+					this.SendPropertyChanged("MotherPhoneNo");
+					this.OnMotherPhoneNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit")]
+		public System.Nullable<bool> IsActive
+		{
+			get
+			{
+				return this._IsActive;
+			}
+			set
+			{
+				if ((this._IsActive != value))
+				{
+					this.OnIsActiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsActive = value;
+					this.SendPropertyChanged("IsActive");
+					this.OnIsActiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhotoLocation", DbType="VarChar(100)")]
+		public string PhotoLocation
+		{
+			get
+			{
+				return this._PhotoLocation;
+			}
+			set
+			{
+				if ((this._PhotoLocation != value))
+				{
+					this.OnPhotoLocationChanging(value);
+					this.SendPropertyChanging();
+					this._PhotoLocation = value;
+					this.SendPropertyChanged("PhotoLocation");
+					this.OnPhotoLocationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tbMember_MemberEvidence", Storage="_MemberEvidences", ThisKey="MemberID", OtherKey="MemberID")]
+		public EntitySet<MemberEvidence> MemberEvidences
+		{
+			get
+			{
+				return this._MemberEvidences;
+			}
+			set
+			{
+				this._MemberEvidences.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Group_tbMember", Storage="_Group", ThisKey="GroupID", OtherKey="GroupID", IsForeignKey=true)]
+		public Group Group
+		{
+			get
+			{
+				return this._Group.Entity;
+			}
+			set
+			{
+				Group previousValue = this._Group.Entity;
+				if (((previousValue != value) 
+							|| (this._Group.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Group.Entity = null;
+						previousValue.Members.Remove(this);
+					}
+					this._Group.Entity = value;
+					if ((value != null))
+					{
+						value.Members.Add(this);
+						this._GroupID = value.GroupID;
+					}
+					else
+					{
+						this._GroupID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Group");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_MemberEvidences(MemberEvidence entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = this;
+		}
+		
+		private void detach_MemberEvidences(MemberEvidence entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = null;
 		}
 	}
 }

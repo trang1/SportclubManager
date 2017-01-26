@@ -8,38 +8,38 @@ using SportclubManager.Models;
 
 namespace SportclubManager.Controllers
 {
-    public class DocumentController : BaseController
+    public class MemberController : BaseController
     {
-        // GET: Document
+        // GET: Member
         public ActionResult Index()
         {
-            var docs = Db.Documents.AsQueryable();
+            var members = Db.Members.AsQueryable();
 
             if (CurrentUser.IsCoach)
-                docs = docs.Where(d => d.UserID == CurrentUser.UserID);
-
-            return View(docs.ToList());
+            {
+                var groupIds = Db.Groups.Where(g => g.CoachID == CurrentUser.UserID).Select(g=>g.GroupID);
+                members = members.Where(d => d.GroupID.HasValue && groupIds.Contains(d.GroupID.Value));
+            }
+            return View(members.ToList());
         }
 
-        public ActionResult Info(int docId)
+        public ActionResult Info(int memberId)
         {
-            var doc = Db.Documents.FirstOrDefault(d=>d.DocumentID == docId);
-            if (docId == -1)
-                doc = new Document() { DocumentID = -1 };
-            return View(doc);
+            var member = Db.Members.FirstOrDefault(m => m.MemberID == memberId);
+            if (memberId == -1)
+                member = new Member() { MemberID = -1 };
+            return View(member);
         }
 
         [HttpPost]
-        public ActionResult Save(Document document)
+        public ActionResult Save(Member member)
         {
-            if (document != null)
+            if (member != null)
             {
-                if (document.DocumentID == -1)
+                if (member.MemberID == -1)
                 {
-                    Db.Documents.InsertOnSubmit(document);
-
-                    document.UserID = CurrentUser.UserID;
-
+                    Db.Members.InsertOnSubmit(member);
+                    
                     if (Request.Files.Count > 0)
                     {
                         var file = Request.Files[0];
@@ -49,22 +49,31 @@ namespace SportclubManager.Controllers
                             var fileName = Path.GetFileName(file.FileName);
 
                             // store the file inside ~/App_Data/uploads/documents folder
-                            const string location = "~/App_Data/uploads/documents";
+                            const string location = "~/App_Data/uploads/members";
 
                             var path = Path.Combine(Server.MapPath(location), fileName);
                             file.SaveAs(path);
 
-                            document.DocumentLocation = location + "/" + fileName;
+                            member.PhotoLocation = location + "/" + fileName;
                         }
                     }
                 }
                 else
                 {
-                    var cachedDoc = Db.Documents.First(d => d.DocumentID == document.DocumentID);
-                    if (cachedDoc != null)
+                    var cachedMember = Db.Members.First(d => d.MemberID == member.MemberID);
+                    if (cachedMember != null)
                     {
-                        cachedDoc.DocumentName = document.DocumentName;
-                        cachedDoc.UserID = CurrentUser.UserID;
+                        cachedMember.FirstName = member.FirstName;
+                        cachedMember.LastName = member.LastName;
+                        cachedMember.Address = member.Address;
+                        cachedMember.IsActive = member.IsActive;
+                        cachedMember.DOB = member.DOB;
+                        cachedMember.Father = member.Father;
+                        cachedMember.FatherMail = member.FatherMail;
+                        cachedMember.FatherPhoneNo = member.FatherPhoneNo;
+                        cachedMember.Mother = member.Mother;
+                        cachedMember.MotherMail = member.MotherMail;
+                        cachedMember.MotherPhoneNo = member.MotherPhoneNo;
 
                         if (Request.Files.Count > 0)
                         {
@@ -74,12 +83,12 @@ namespace SportclubManager.Controllers
                                 // extract only the filename
                                 var fileName = Path.GetFileName(file.FileName);
                                 // store the file inside ~/App_Data/uploads/documents folder
-                                const string location = "~/App_Data/uploads/documents";
+                                const string location = "~/App_Data/uploads/members";
 
                                 var path = Path.Combine(Server.MapPath(location), fileName);
                                 file.SaveAs(path);
 
-                                cachedDoc.DocumentLocation = location + "/" + fileName;
+                                cachedMember.PhotoLocation = location + "/" + fileName;
                             }
                         }
                     }
@@ -93,31 +102,30 @@ namespace SportclubManager.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Delete(int docId)
+        public ActionResult Delete(int memberId)
         {
-            var cachedDoc = Db.Documents.First(d => d.DocumentID == docId);
-            if (cachedDoc != null)
+            var cachedMember = Db.Members.First(d => d.MemberID== memberId);
+            if (cachedMember != null)
             {
-                Db.Documents.DeleteOnSubmit(cachedDoc);
+                Db.Members.DeleteOnSubmit(cachedMember);
                 Db.SubmitChanges();
             }
             return RedirectToAction("Index");
         }
-
-        public ActionResult OpenFile(string location)
+        public ActionResult OpenPhoto(string location)
         {
             return File(Server.MapPath(location), "application/text", Path.GetFileName(location));
         }
 
-        public ActionResult DeleteFile(string location)
+        public ActionResult DeletePhoto(string location)
         {
             var path = Server.MapPath(location);
             try //Maybe error could happen like Access denied or Presses Already User used
             {
                 System.IO.File.Delete(path);
 
-                var docs = Db.Documents.Where(d => d.DocumentLocation == location).ToList();
-                docs.ForEach(d=>d.DocumentLocation = null);
+                var members = Db.Members.Where(m => m.PhotoLocation == location).ToList();
+                members.ForEach(m => m.PhotoLocation = null);
                 Db.SubmitChanges();
             }
             catch (Exception e)

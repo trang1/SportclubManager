@@ -16,6 +16,39 @@
       <Association Name="Role_User" Member="Users" ThisKey="RoleID" OtherKey="RoleID" Type="User" />
     </Type>
   </Table>
+  <Table Name="dbo.tbMemberEvidence" Member="MemberEvidences">
+    <Type Name="MemberEvidence">
+      <Column Name="GroupID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MemberID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Present" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Group_MemberEvidence" Member="Group" ThisKey="GroupID" OtherKey="GroupID" Type="Group" IsForeignKey="true" />
+      <Association Name="tbMember_MemberEvidence" Member="Member" ThisKey="MemberID" OtherKey="MemberID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbGroup" Member="Groups">
+    <Type Name="Group">
+      <Column Name="GroupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GroupName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CoachID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Group_MemberEvidence" Member="MemberEvidences" ThisKey="GroupID" OtherKey="GroupID" Type="MemberEvidence" />
+      <Association Name="Group_tbMember" Member="Members" ThisKey="GroupID" OtherKey="GroupID" Type="Member" />
+      <Association Name="User_Group" Member="User" ThisKey="CoachID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbUser" Member="Users">
+    <Type Name="User">
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UserLogin" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="UserPassword" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="User_Document" Member="Documents" ThisKey="UserID" OtherKey="UserID" Type="Document" />
+      <Association Name="User_Group" Member="Groups" ThisKey="UserID" OtherKey="CoachID" Type="Group" />
+      <Association Name="Role_User" Member="Role" ThisKey="RoleID" OtherKey="RoleID" Type="Role" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.tbMember" Member="Members">
     <Type Name="Member">
       <Column Name="MemberID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -31,41 +64,9 @@
       <Column Name="FatherPhoneNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="MotherPhoneNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="Member_MemberEvidence" Member="MemberEvidences" ThisKey="MemberID" OtherKey="MemberID" Type="MemberEvidence" />
-      <Association Name="Group_Member" Member="Group" ThisKey="GroupID" OtherKey="GroupID" Type="Group" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tbMemberEvidence" Member="MemberEvidences">
-    <Type Name="MemberEvidence">
-      <Column Name="GroupID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="MemberID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Present" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="Member_MemberEvidence" Member="Member" ThisKey="MemberID" OtherKey="MemberID" Type="Member" IsForeignKey="true" />
-      <Association Name="Group_MemberEvidence" Member="Group" ThisKey="GroupID" OtherKey="GroupID" Type="Group" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tbGroup" Member="Groups">
-    <Type Name="Group">
-      <Column Name="GroupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="GroupName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="CoachID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Group_Member" Member="Members" ThisKey="GroupID" OtherKey="GroupID" Type="Member" />
-      <Association Name="Group_MemberEvidence" Member="MemberEvidences" ThisKey="GroupID" OtherKey="GroupID" Type="MemberEvidence" />
-      <Association Name="User_Group" Member="User" ThisKey="CoachID" OtherKey="UserID" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tbUser" Member="Users">
-    <Type Name="User">
-      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="RoleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UserLogin" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="UserPassword" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="User_Document" Member="Documents" ThisKey="UserID" OtherKey="UserID" Type="Document" />
-      <Association Name="User_Group" Member="Groups" ThisKey="UserID" OtherKey="CoachID" Type="Group" />
-      <Association Name="Role_User" Member="Role" ThisKey="RoleID" OtherKey="RoleID" Type="Role" IsForeignKey="true" />
+      <Column Name="PhotoLocation" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="tbMember_MemberEvidence" Member="MemberEvidences" ThisKey="MemberID" OtherKey="MemberID" Type="MemberEvidence" />
+      <Association Name="Group_tbMember" Member="Group" ThisKey="GroupID" OtherKey="GroupID" Type="Group" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

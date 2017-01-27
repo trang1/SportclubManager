@@ -67,9 +67,7 @@ namespace SportclubManager.Models
             }
             set
             {
-                var db = DependencyResolver.Current.GetService<SportclubManagerDataContext>();
-                var role = db.Roles.FirstOrDefault(r => r.RoleID == Convert.ToInt32(value));
-                Role = role;
+                RoleID = string.IsNullOrEmpty(value) ? (int?) null : Convert.ToInt32(value);
             }
         }
 

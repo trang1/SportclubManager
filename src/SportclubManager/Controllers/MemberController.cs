@@ -27,7 +27,7 @@ namespace SportclubManager.Controllers
         {
             var member = Db.Members.FirstOrDefault(m => m.MemberID == memberId);
             if (memberId == -1)
-                member = new Member() { MemberID = -1 };
+                member = new Member() { MemberID = -1, IsActive = true};
             return View(member);
         }
 
@@ -74,6 +74,7 @@ namespace SportclubManager.Controllers
                         cachedMember.Mother = member.Mother;
                         cachedMember.MotherMail = member.MotherMail;
                         cachedMember.MotherPhoneNo = member.MotherPhoneNo;
+                        cachedMember.GroupID = member.GroupID;
 
                         if (Request.Files.Count > 0)
                         {

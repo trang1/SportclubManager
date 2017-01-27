@@ -30,15 +30,15 @@
                 @Html.TextBox("DocumentLocation", Model?.DocumentLocation, new {@class = "form-control", disabled = "true"})
                 @Html.ValidationMessage("DocumentLocation")*@
 
+            <span>Attachment</span>
             @if (string.IsNullOrEmpty(Model?.DocumentLocation))
             {
                 <p></p>
                 <input type="file" name="file" class="form-control"/>
-                <p></p>
             }
             else
             {
-                <div class="row" id="cont">
+                <div class="row table-bordered" id="cont">
                     <div class="col-md-5">
                         @*<button class="btn btn-block" onclick='openFile("@Model.DocumentLocation")'>
                             Open file
@@ -53,8 +53,8 @@
                         @Ajax.ActionLink("Delete file", "DeleteFile", new {location = Model.DocumentLocation}, options)
                     </div>
                 </div>
-                <p></p>
             }
+            <p></p>
 
             <div class="row">
                 <div class="col-md-5">

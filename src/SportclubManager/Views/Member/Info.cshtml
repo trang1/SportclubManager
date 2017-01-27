@@ -6,20 +6,6 @@
 
 @model SportclubManager.Models.Member
 
-<!-- jQuery UI CSS Reference -->
-<link href="@Url.Content("~/Content/themes/base/jquery-ui.min.css")" rel="stylesheet" />
-<!-- Required jQuery and jQuery UI Javascript references -->
-<script src="@Url.Content("~/Scripts/jquery-1.12.4.min.js")"></script>
-<script src="@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")"></script>
-
-<!-- Code to wire up DatePicker -->
-<script type="text/javascript">
-    $(function() {
-        // This will make every element with the class "date-picker" into a DatePicker element
-        $('.date-picker').datepicker();
-    })
-</script>
-
 <div class="container" align="center">
     <h2>Member information</h2>
     @{
@@ -36,19 +22,28 @@
             <div hidden>
                 @Html.TextBox("MemberID", Model?.MemberID, new { @class = "form-control" })
             </div>
-            <span>First Name</span>
-            @Html.TextBox("FirstName", Model?.FirstName, new { @class = "form-control" })
-            @Html.ValidationMessage("FirstName")
-            <p></p>
 
-            <span>Last Name</span>
-            @Html.TextBox("LastName", Model?.LastName, new { @class = "form-control" })
-            @Html.ValidationMessage("LastName")
+            <div class="row">
+                <div class="col-lg-6">
+                    <span>First Name</span>
+                    @Html.TextBox("FirstName", Model?.FirstName, new {@class = "form-control"})
+                    @Html.ValidationMessage("FirstName")
+                </div>
+                <div class="col-lg-6">
+                    <span>Last Name</span>
+                    @Html.TextBox("LastName", Model?.LastName, new {@class = "form-control"})
+                    @Html.ValidationMessage("LastName")
+                </div>
+            </div>
             <p></p>
 
             <span>Date of birth</span>
-            @Html.TextBox("DOB", Model?.DOB, new { @class = "form-control ui-datepicker" })
-            @Html.ValidationMessage("DOB")
+            <div class="controls">
+                @Html.DropDownList("BirthdateDay", Model.BirthdateDaySelectList)
+                @Html.DropDownList("BirthdateMonth", Model.BirthdateMonthSelectList)
+                @Html.DropDownList("BirthdateYear", Model.BirthdateYearSelectList)
+            </div>
+
             <p></p>
 
             <span>Address</span>
@@ -76,7 +71,7 @@
             @Html.ValidationMessage("Mother")
             <p></p>
 
-            <span>Father's Mail</span>
+            <span>Mother's Mail</span>
             @Html.TextBox("MotherMail", Model?.MotherMail, new { @class = "form-control" })
             @Html.ValidationMessage("MotherMail")
             <p></p>
@@ -86,6 +81,12 @@
             @Html.ValidationMessage("MotherPhoneNo")
             <p></p>
 
+            <span>Group</span>
+            @Html.DropDownListFor(n => n.SelectedGroupValue, Model?.Groups, "Please select a group", new { @class = "form-control" })
+            @Html.ValidationMessage("Group")
+            <p></p>
+
+            <span>Photo</span>
             @if (string.IsNullOrEmpty(Model?.PhotoLocation))
             {
                 <p></p>
@@ -94,15 +95,14 @@
             }
             else
             {
-                <div class="row" id="cont">
+                <div class="row table-bordered" id="cont">
                     <div class="col-md-5">
                         @*<button class="btn btn-block" onclick='openFile("@Model.PhotoLocation")'>
                             Open file
                         </button>*@
                         @Ajax.ActionLink("Open photo", "OpenPhoto", new { location = Model.PhotoLocation }, options)
                     </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-5">
+                    <div class="col-md-5 col-lg-offset-2">
                         @*<button class="btn btn-block" onclick='sendRequestToRemove("@Model.PhotoLocation")'>
                             Delete file
                         </button>*@
@@ -113,8 +113,7 @@
             }
 
             <span>Is active</span>
-            @Html.CheckBox("IsActive", 
-                    Model.IsActive.GetValueOrDefault(false), new { @class = "form-control" })
+            @Html.CheckBox("IsActive", Model.IsActive.GetValueOrDefault(false))
             @Html.ValidationMessage("IsActive")
             <p></p>
 

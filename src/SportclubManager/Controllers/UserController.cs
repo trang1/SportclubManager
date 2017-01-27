@@ -48,7 +48,7 @@ namespace SportclubManager.Controllers
                             cachedUser.UserPassword = user.UserPassword;
 
                         if (!CurrentUser.IsCoach)
-                            cachedUser.Role = Db.Roles.FirstOrDefault(r => r.RoleID == int.Parse(user.SelectedRoleValue));
+                            cachedUser.RoleID = user.RoleID;
                     }
                 }
                 Db.SubmitChanges();

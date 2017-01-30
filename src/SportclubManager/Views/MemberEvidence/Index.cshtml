@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model SportclubManager.Models.MemberEvidenceModel
+
+<script>
+    function addDate(i) {
+        alert(i);
+    }
+
+    window.onload = function () {
+        $("[name='Present']").click(function() {
+            alert($(this).attr("date"));
+        });
+        $("td").attr("align", "center");
+    }
+</script>
+
+<div class="container" align="center">
+    <h2>Member evidence</h2>
+
+    <div class="row">
+        <div class="col-lg-6">
+            @Html.DropDownList("Group", Model.GroupList, new {@class = "form-control"})
+        </div>
+        <div class="col-lg-6">
+            <button type="button" class="btn btn-default" onclick="addDate(-1);">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </button>
+                @Html.TextBox("Date", Model.CurrentDate, new {@disabled = "disabled"})
+            <button type="button" class="btn btn-default" onclick="addDate(1);">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+        </div>
+    </div>
+    <p></p>
+
+    @if (Model.MemberEvidences != null && Model.MemberEvidences.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <td>
+                            <b>Member name</b>
+                        </td>
+                        <td>
+                            <b>Mon</b>
+                        </td>
+                        <td>
+                            <b>Tue</b>
+                        </td>
+                        <td>
+                            <b>Wed</b>
+                        </td>
+                        <td>
+                            <b>Thu</b>
+                        </td>
+                        <td>
+                            <b>Fri</b>
+                        </td>
+                        <td>
+                            <b>Sat</b>
+                        </td>
+                        <td>
+                            <b>Sun</b>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var member in Model.MemberEvidences)
+                {
+                    <tr>
+                        <td>
+                            @member.MemberName
+                        </td>
+                        <td class="@(Model.CurrentDate == member["Mon"].Date.ToShortDateString() ? "success" : "")">
+                            @Html.CheckBox("Present", member["Mon"].Present.GetValueOrDefault(), 
+                                new {@id = member["Mon"].MemberID, @date= member["Mon"].Date.Ticks })
+                        </td>
+                        <td class="@(Model.CurrentDate == member["Tue"].Date.ToShortDateString() ? "success" : "")">
+                            @Html.CheckBox("Present", member["Tue"].Present.GetValueOrDefault(),
+                                new { @id = member["Tue"].MemberID, @date = member["Tue"].Date.Ticks })
+                        </td>
+                        <td class="@(Model.CurrentDate == member["Wed"].Date.ToShortDateString() ? "success" : "")">
+                            @Html.CheckBox("Present", member["Wed"].Present.GetValueOrDefault(),
+                                new { @id = member["Wed"].MemberID, @date = member["Wed"].Date.Ticks })
+                        </td>
+                        <td class="@(Model.CurrentDate == member["Thu"].Date.ToShortDateString() ? "success" : "")">
+                            @Html.CheckBox("Present", member["Thu"].Present.GetValueOrDefault(),
+                                new { @id = member["Thu"].MemberID, @date = member["Thu"].Date.Ticks })
+                        </td>
+                        <td class="@(Model.CurrentDate == member["Fri"].Date.ToShortDateString() ? "success" : "")">
+                            @Html.CheckBox("Present", member["Fri"].Present.GetValueOrDefault(),
+                                new { @id = member["Fri"].MemberID, @date = member["Fri"].Date.Ticks })
+                        </td>
+                        <td class="@(Model.CurrentDate == member["Sat"].Date.ToShortDateString() ? "success" : "")">
+                            @Html.CheckBox("Present", member["Sat"].Present.GetValueOrDefault(),
+                                new { @id = member["Sat"].MemberID, @date = member["Sat"].Date.Ticks })
+                        </td>
+                        <td class="@(Model.CurrentDate == member["Sun"].Date.ToShortDateString() ? "success" : "")">
+                            @Html.CheckBox("Present", member["Sun"].Present.GetValueOrDefault(),
+                                new { @id = member["Sun"].MemberID, @date = member["Sun"].Date.Ticks })
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+    <p>
+        @Html.ActionLink("Save changes", "Save", "MemberEvidence", null, new {@class = "btn btn-success btn-lg"})
+        @Html.ActionLink("Undo changes", "Index", "MemberEvidence", null, new {@class = "btn btn-warning btn-lg"})
+        @Html.ActionLink("Home", "Home", "Home", null, new {@class = "btn btn-info btn-lg"})
+    </p>
+</div>

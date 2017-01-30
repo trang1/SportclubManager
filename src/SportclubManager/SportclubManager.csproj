@@ -164,6 +164,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\MemberEvidenceController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -172,6 +173,7 @@
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\LoginView.cs" />
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\MemberEvidenceModel.cs" />
     <Compile Include="Models\SportclubManager.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -317,6 +319,7 @@
     <Content Include="Views\Shared\_Ok.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Member\Info.cshtml" />
+    <Content Include="Views\MemberEvidence\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\documents\" />

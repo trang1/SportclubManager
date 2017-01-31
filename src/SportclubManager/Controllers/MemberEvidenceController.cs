@@ -16,13 +16,23 @@ namespace SportclubManager.Controllers
 
             if (mem.Groups.Any())
             {
-                mem.MemberEvidences = new List<MemberEvidenceWeek>();
-                mem.CurrentDate = DateTime.Today.ToShortDateString();
+                mem.CurrentDate = DateTime.Today;
+                mem.MemberEvidences = GetMembersEvidences(mem.CurrentDate, mem.Groups.First().GroupID);
+            }
 
-                var group = mem.Groups.First();
+            return View(mem);
+        }
 
-                int currentDayOfWeek = (int) DateTime.Today.DayOfWeek;
-                var sunday = DateTime.Today.AddDays(-currentDayOfWeek);
+        private List<MemberEvidenceWeek> GetMembersEvidences(DateTime currentDate, int groupId)
+        {
+            var group = Db.Groups.FirstOrDefault(g => g.GroupID == groupId);
+            DateTime curDate;
+            var list = new List<MemberEvidenceWeek>();
+
+            if (group != null)
+            {
+                int currentDayOfWeek = (int)currentDate.DayOfWeek;
+                var sunday = currentDate.AddDays(-currentDayOfWeek);
                 var monday = sunday.AddDays(1);
                 // If we started on Sunday, we should actually have gone *back*
                 // 6 days instead of forward 1...
@@ -31,10 +41,9 @@ namespace SportclubManager.Controllers
                     monday = monday.AddDays(-7);
                 }
                 var days = new[] {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
-
                 foreach (var member in group.Members)
                 {
-                    var mew = new MemberEvidenceWeek {MemberName = member.FullName};
+                    var mew = new MemberEvidenceWeek {MemberName = member.FullName, CurrentDate = currentDate};
 
                     for (var i = 0; i < 7; i++)
                     {
@@ -51,16 +60,27 @@ namespace SportclubManager.Controllers
                         mew[day] = me;
                     }
 
-                    mem.MemberEvidences.Add(mew);
+                    list.Add(mew);
                 }
             }
-
-            return View(mem);
+            return list;
         }
 
         public ActionResult Save()
         {
             return RedirectToAction("Index");
+        }
+
+        public ActionResult AddDate(string date, int groupId)
+        {
+            DateTime dateTime;
+            var weeks = new List<MemberEvidenceWeek>();
+
+            if (DateTime.TryParse(date, out dateTime))
+            {
+                weeks = GetMembersEvidences(dateTime.Date, groupId);
+            }
+            return View("Evidences", weeks);
         }
     }
 }

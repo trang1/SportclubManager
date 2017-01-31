@@ -25,21 +25,21 @@ namespace SportclubManager.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(Group @group)
+        public ActionResult Save(Group group)
         {
-            if (@group != null)
+            if (group != null)
             {
-                if (@group.GroupID == -1)
+                if (group.GroupID == -1)
                 {
-                    Db.Groups.InsertOnSubmit(@group);
+                    Db.Groups.InsertOnSubmit(group);
                 }
                 else
                 {
-                    var cachedGroup = Db.Groups.First(u => u.GroupID == @group.GroupID);
+                    var cachedGroup = Db.Groups.First(u => u.GroupID == group.GroupID);
                     if (cachedGroup != null)
                     {
-                        cachedGroup.GroupName = @group.GroupName;
-                        cachedGroup.User = Db.Users.FirstOrDefault(r => r.UserID == int.Parse(@group.SelectedCoachValue));
+                        cachedGroup.GroupName = group.GroupName;
+                        cachedGroup.CoachID = group.CoachID;
                     }
                 }
                 Db.SubmitChanges();

@@ -320,6 +320,7 @@
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Member\Info.cshtml" />
     <Content Include="Views\MemberEvidence\Index.cshtml" />
+    <Content Include="Views\MemberEvidence\Evidences.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\documents\" />

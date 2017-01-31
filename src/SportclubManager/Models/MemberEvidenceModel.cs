@@ -36,13 +36,16 @@ namespace SportclubManager.Models
             }
         }
 
-        public string CurrentDate { get; set; }
+        public string CurrentDateString { get { return CurrentDate.ToShortDateString(); } }
 
-        public IList<MemberEvidenceWeek> MemberEvidences { get; set; } 
+        public DateTime CurrentDate { get; set; }
+
+        public List<MemberEvidenceWeek> MemberEvidences { get; set; } 
     }
 
     public class MemberEvidenceWeek : Dictionary<string,MemberEvidence>
     {
         public string MemberName { get; set; }
+        public DateTime CurrentDate { get; set; }
     }
 }

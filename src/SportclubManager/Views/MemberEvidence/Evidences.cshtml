@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Evidences";
+}
+@model List<SportclubManager.Models.MemberEvidenceWeek>
+
+<script>
+    this.onload = bindTable;
+
+    function bindTable() {
+        $("[name='Present']").click(function() {
+            alert($(this).attr("date"));
+        });
+        $("td").attr("align", "center");
+    }
+</script>
+
+    <table class="table table-bordered table-hover table-condensed">
+        <thead>
+            <tr>
+                <td>
+                    <b>Member name</b>
+                </td>
+                <td>
+                    <b>Mon</b>
+                </td>
+                <td>
+                    <b>Tue</b>
+                </td>
+                <td>
+                    <b>Wed</b>
+                </td>
+                <td>
+                    <b>Thu</b>
+                </td>
+                <td>
+                    <b>Fri</b>
+                </td>
+                <td>
+                    <b>Sat</b>
+                </td>
+                <td>
+                    <b>Sun</b>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var week in Model)
+            {
+                <tr>
+                    <td>
+                        @week.MemberName
+                    </td>
+                    <td class="@(week["Mon"].Date == week.CurrentDate ? "success" : "")">
+                        @Html.CheckBox("Present", week["Mon"].Present.GetValueOrDefault(),
+                                new { @id = week["Mon"].MemberID, @date = week["Mon"].Date.Ticks })
+                    </td>
+                    <td class="@(week["Tue"].Date == week.CurrentDate ? "success" : "")">
+                        @Html.CheckBox("Present", week["Tue"].Present.GetValueOrDefault(),
+                                new { @id = week["Tue"].MemberID, @date = week["Tue"].Date.Ticks })
+                    </td>
+                    <td class="@(week["Wed"].Date == week.CurrentDate ? "success" : "")">
+                        @Html.CheckBox("Present", week["Wed"].Present.GetValueOrDefault(),
+                                new { @id = week["Wed"].MemberID, @date = week["Wed"].Date.Ticks })
+                    </td>
+                    <td class="@(week["Thu"].Date == week.CurrentDate ? "success" : "")">
+                        @Html.CheckBox("Present", week["Thu"].Present.GetValueOrDefault(),
+                                new { @id = week["Thu"].MemberID, @date = week["Thu"].Date.Ticks })
+                    </td>
+                    <td class="@(week["Fri"].Date == week.CurrentDate ? "success" : "")">
+                        @Html.CheckBox("Present", week["Fri"].Present.GetValueOrDefault(),
+                                new { @id = week["Fri"].MemberID, @date = week["Fri"].Date.Ticks })
+                    </td>
+                    <td class="@(week["Sat"].Date == week.CurrentDate ? "success" : "")">
+                        @Html.CheckBox("Present", week["Sat"].Present.GetValueOrDefault(),
+                                new { @id = week["Sat"].MemberID, @date = week["Sat"].Date.Ticks })
+                    </td>
+                    <td class="@(week["Sun"].Date == week.CurrentDate ? "success" : "")">
+                        @Html.CheckBox("Present", week["Sun"].Present.GetValueOrDefault(),
+                                new { @id = week["Sun"].MemberID, @date = week["Sun"].Date.Ticks })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+

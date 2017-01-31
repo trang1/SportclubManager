@@ -30,9 +30,7 @@ namespace SportclubManager.Models
             }
             set
             {
-                var db = DependencyResolver.Current.GetService<SportclubManagerDataContext>();
-                var user = db.Users.FirstOrDefault(r => r.UserID == Convert.ToInt32(value));
-                User = user;
+                CoachID = string.IsNullOrEmpty(value) ? (int?)null : Convert.ToInt32(value);
             }
         }
 

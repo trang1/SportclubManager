@@ -36,11 +36,8 @@ namespace SportclubManager.Controllers
                 else
                 {
                     var cachedGroup = Db.Groups.First(u => u.GroupID == group.GroupID);
-                    if (cachedGroup != null)
-                    {
-                        cachedGroup.GroupName = group.GroupName;
-                        cachedGroup.CoachID = group.CoachID;
-                    }
+                    cachedGroup.GroupName = group.GroupName;
+                    cachedGroup.CoachID = group.CoachID;
                 }
                 Db.SubmitChanges();
             }

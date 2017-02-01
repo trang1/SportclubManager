@@ -9,10 +9,10 @@ namespace SportclubManager.Models
 
     public class LoginView
     {
-        [Required(ErrorMessage = "Введите Login")]
+        [Required(ErrorMessage = "Enter login")]
         public string Login { get; set; }
 
-        [Required(ErrorMessage = "Введите пароль")]
+        [Required(ErrorMessage = "Enter password")]
         public string Password { get; set; }
 
         public bool IsPersistent { get; set; }

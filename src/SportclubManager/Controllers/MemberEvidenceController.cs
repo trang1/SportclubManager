@@ -66,9 +66,18 @@ namespace SportclubManager.Controllers
             return list;
         }
 
-        public ActionResult Save()
+        public JsonResult Save(List<MemberEvidence> mes)
         {
-            return RedirectToAction("Index");
+            if (mes == null) return Json(new {Success = false, Message = "Argument is null."});
+
+            foreach (var memberEvidence in mes)
+            {
+                var cachedMe = Db.MemberEvidences.First(
+                        me => me.MemberID == memberEvidence.MemberID && me.Date == memberEvidence.Date);
+                cachedMe.Present = memberEvidence.Present;
+                Db.SubmitChanges();
+            }
+            return Json(new { Success = true, Message = "Successfully saved!" });
         }
 
         public ActionResult AddDate(string date, int groupId)

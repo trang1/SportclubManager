@@ -9,6 +9,7 @@
     function addDate(i) {
         var date = new Date($("#Date").attr("date"));
         var newDate = addDays(date, i);
+        //alert(getTableState());
         $.ajax({
             type: "GET",
             url: "/MemberEvidence/AddDate",
@@ -35,6 +36,37 @@
 
     function toDisplayDateString(d) {
         return ("0" + d.getDate()).slice(-2) + "." + ("0" + (d.getMonth() + 1)).slice(-2) + "." + d.getFullYear();
+    }
+
+    function getTableState() {
+        var cells = $("[name='Present'][type=checkbox]");
+
+        var state = new Array();
+        for (var i = 0; i < cells.length; i++) {
+            var obj = new Object();
+            obj.MemberID = cells[i].getAttribute('memberId');
+            obj.Date = cells[i].getAttribute('date');
+            obj.Present = cells[i].checked;
+            state.push(obj);
+        }
+        return JSON.stringify(state);
+    }
+
+    function PostData() {
+        $.ajax({
+            url: "/MemberEvidence/Save",
+            async: false,
+            type: "POST",
+            data: getTableState(),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR + "-" + textStatus + "-" + errorThrown);
+            },
+            success: function (data) {
+                alert(data.Message);
+            }
+        });
     }
 </script>
 <script>
@@ -74,7 +106,10 @@
 
     <p></p>
     <p>
-        @Html.ActionLink("Save changes", "Save", "MemberEvidence", null, new {@class = "btn btn-success btn-lg"})
+        <button class="btn btn-success btn-lg" onclick="PostData()">
+            Save changes
+        </button>
+        @*@Html.ActionLink("Save changes", "Save", "MemberEvidence", null, new {@class = "btn btn-success btn-lg"})*@
         @Html.ActionLink("Undo changes", "Index", "MemberEvidence", null, new {@class = "btn btn-warning btn-lg"})
         @Html.ActionLink("Home", "Home", "Home", null, new {@class = "btn btn-info btn-lg"})
     </p>

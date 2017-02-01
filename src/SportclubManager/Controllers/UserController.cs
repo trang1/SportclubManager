@@ -36,20 +36,17 @@ namespace SportclubManager.Controllers
                 else
                 {
                     var cachedUser = Db.Users.First(u => u.UserID == user.UserID);
-                    if (cachedUser != null)
-                    {
-                        cachedUser.FirstName = user.FirstName;
-                        cachedUser.LastName = user.LastName;
+                    cachedUser.FirstName = user.FirstName;
+                    cachedUser.LastName = user.LastName;
 
-                        if (!CurrentUser.IsCoach)
-                            cachedUser.UserLogin = user.UserLogin;
+                    if (!CurrentUser.IsCoach)
+                        cachedUser.UserLogin = user.UserLogin;
 
-                        if (cachedUser.UserID == CurrentUser.UserID)
-                            cachedUser.UserPassword = user.UserPassword;
+                    if (cachedUser.UserID == CurrentUser.UserID)
+                        cachedUser.UserPassword = user.UserPassword;
 
-                        if (!CurrentUser.IsCoach)
-                            cachedUser.RoleID = user.RoleID;
-                    }
+                    if (!CurrentUser.IsCoach)
+                        cachedUser.RoleID = user.RoleID;
                 }
                 Db.SubmitChanges();
             }

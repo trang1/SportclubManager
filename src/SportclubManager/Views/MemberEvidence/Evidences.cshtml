@@ -8,9 +8,6 @@
     this.onload = bindTable;
 
     function bindTable() {
-        $("[name='Present']").click(function() {
-            alert($(this).attr("date"));
-        });
         $("td").attr("align", "center");
     }
 </script>
@@ -53,31 +50,31 @@
                     </td>
                     <td class="@(week["Mon"].Date == week.CurrentDate ? "success" : "")">
                         @Html.CheckBox("Present", week["Mon"].Present.GetValueOrDefault(),
-                                new { @id = week["Mon"].MemberID, @date = week["Mon"].Date.Ticks })
+                                new {week["Mon"].MemberID, @Date = week["Mon"].Date.ToString("yyyy-MM-dd") })
                     </td>
                     <td class="@(week["Tue"].Date == week.CurrentDate ? "success" : "")">
                         @Html.CheckBox("Present", week["Tue"].Present.GetValueOrDefault(),
-                                new { @id = week["Tue"].MemberID, @date = week["Tue"].Date.Ticks })
+                                new { week["Tue"].MemberID, @Date = week["Tue"].Date.ToString("yyyy-MM-dd") })
                     </td>
                     <td class="@(week["Wed"].Date == week.CurrentDate ? "success" : "")">
                         @Html.CheckBox("Present", week["Wed"].Present.GetValueOrDefault(),
-                                new { @id = week["Wed"].MemberID, @date = week["Wed"].Date.Ticks })
+                                new { week["Wed"].MemberID, @Date = week["Wed"].Date.ToString("yyyy-MM-dd") })
                     </td>
                     <td class="@(week["Thu"].Date == week.CurrentDate ? "success" : "")">
                         @Html.CheckBox("Present", week["Thu"].Present.GetValueOrDefault(),
-                                new { @id = week["Thu"].MemberID, @date = week["Thu"].Date.Ticks })
+                                new { week["Thu"].MemberID, @Date = week["Thu"].Date.ToString("yyyy-MM-dd") })
                     </td>
                     <td class="@(week["Fri"].Date == week.CurrentDate ? "success" : "")">
                         @Html.CheckBox("Present", week["Fri"].Present.GetValueOrDefault(),
-                                new { @id = week["Fri"].MemberID, @date = week["Fri"].Date.Ticks })
+                                new { week["Fri"].MemberID, @Date = week["Fri"].Date.ToString("yyyy-MM-dd") })
                     </td>
                     <td class="@(week["Sat"].Date == week.CurrentDate ? "success" : "")">
                         @Html.CheckBox("Present", week["Sat"].Present.GetValueOrDefault(),
-                                new { @id = week["Sat"].MemberID, @date = week["Sat"].Date.Ticks })
+                                new { week["Sat"].MemberID, @Date = week["Sat"].Date.ToString("yyyy-MM-dd") })
                     </td>
                     <td class="@(week["Sun"].Date == week.CurrentDate ? "success" : "")">
                         @Html.CheckBox("Present", week["Sun"].Present.GetValueOrDefault(),
-                                new { @id = week["Sun"].MemberID, @date = week["Sun"].Date.Ticks })
+                                new { week["Sun"].MemberID, @Date = week["Sun"].Date.ToString("yyyy-MM-dd") })
                     </td>
                 </tr>
             }

@@ -69,13 +69,6 @@
         });
     }
 </script>
-<script>
-    window.load = function() {
-        $("#Group").change(function() {
-            alert($("#Group").val());
-        });
-    }
-</script>
 <div class="container" align="center">
     <h2>Member evidence</h2>
 
@@ -96,6 +89,12 @@
     </div>
     <p></p>
     <p></p>
+
+    <script>
+        $("#Group").change(function() {
+            addDate(0);
+        });
+    </script>
 
     @if (Model.MemberEvidences != null && Model.MemberEvidences.Count > 0)
     {

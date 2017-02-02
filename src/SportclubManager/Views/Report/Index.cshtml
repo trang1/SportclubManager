@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model SportclubManager.Models.ReportModel
+
+<div class="container">
+    @using (Html.BeginForm("Show", "Report", FormMethod.Post, new
+    {
+        @class = "form-login",
+        @role = "form"
+    }))
+    {
+        <h2>Report</h2>
+        <p></p>
+
+        <span>Group</span>
+        @Html.DropDownList("GroupID", Model.GroupList, "Please select a group", new { @class = "form-control" })
+        @Html.ValidationMessage("GroupID")
+        <p></p>
+
+        <span>Date from</span>
+        <div class="controls">
+            @Html.DropDownList("DateFromDay", Model.DateFromDaySelectList)
+            @Html.DropDownList("DateFromMonth", Model.DateFromMonthSelectList)
+            @Html.DropDownList("DateFromYear", Model.DateFromYearSelectList)
+        </div>
+        <p></p>
+
+        <span>Date to</span>
+        <div class="controls">
+            @Html.DropDownList("DateToDay", Model.DateToDaySelectList)
+            @Html.DropDownList("DateToMonth", Model.DateToMonthSelectList)
+            @Html.DropDownList("DateToYear", Model.DateToYearSelectList)
+        </div>
+        <p></p>
+
+        <button type="submit" class="btn btn-lg btn-primary btn-block btn-margin">
+            Generate report
+        </button>
+        @Html.ActionLink("Home", "Home", "Home", null, new { @class = "btn btn-info btn-lg" })
+    }
+</div>

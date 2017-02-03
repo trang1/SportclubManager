@@ -7,7 +7,7 @@ using System.Web;
 namespace SportclubManager.Models
 {
 
-    public class LoginView
+    public class LoginModel
     {
         [Required(ErrorMessage = "Enter login")]
         public string Login { get; set; }

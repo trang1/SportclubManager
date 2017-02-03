@@ -8,14 +8,14 @@ namespace SportclubManager.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(new LoginView());
+            return View(new LoginModel());
         }
         [HttpPost]
-        public ActionResult Index(LoginView loginView)
+        public ActionResult Index(LoginModel loginModel)
         {
             if (ModelState.IsValid)
             {
-                var user = Auth.Login(loginView.Login, loginView.Password, loginView.IsPersistent);
+                var user = Auth.Login(loginModel.Login, loginModel.Password, loginModel.IsPersistent);
                 if (user != null)
                 {
                     switch (user.Role.RoleName)
@@ -30,7 +30,7 @@ namespace SportclubManager.Controllers
                 }
                 ModelState["Password"].Errors.Add("Wrong login or password specified.");
             }
-            return View(loginView);
+            return View(loginModel);
         }
         public ActionResult Logout()
         {

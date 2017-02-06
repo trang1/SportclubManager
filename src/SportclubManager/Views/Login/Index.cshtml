@@ -4,21 +4,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container">
-    @using (Html.BeginForm("Index", "Login", FormMethod.Post, new
-    {
-        @class = "form-login",
-        @role = "form"
-    }))
+    @using (Html.BeginForm("Index", "Login", FormMethod.Post, new {@class = "form-login", @role = "form"}))
     {
         <h2 class="form-login-heading">Please log in</h2>
-                    @Html.TextBox("Login", Model.Login, new { @class = "form-control", @placeholder="Login" })
-                    @Html.ValidationMessage("Login")
+        @Html.TextBox("Login", Model.Login, new {@class = "form-control", @placeholder = "Login"})
+        @Html.ValidationMessage("Login")
         <p></p>
-                    @Html.Password("Password", Model.Password, new { @class = "form-control", @placeholder="Password" })
-                    @Html.ValidationMessage("Password")
+        @Html.Password("Password", Model.Password, new {@class = "form-control", @placeholder = "Password"})
+        @Html.ValidationMessage("Password")
         <p></p>
-                <button type="submit" class="btn btn-lg btn-primary btn-block btn-margin">
-                    Enter
-                </button>
+        <button type="submit" class="btn btn-lg btn-primary btn-block btn-margin">
+            Enter
+        </button>
     }
 </div>

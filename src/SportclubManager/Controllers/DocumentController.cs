@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SportclubManager.Auth;
 using SportclubManager.Models;
 
 namespace SportclubManager.Controllers
@@ -15,8 +16,8 @@ namespace SportclubManager.Controllers
         {
             var docs = Db.Documents.AsQueryable();
 
-            if (CurrentUser.IsCoach)
-                docs = docs.Where(d => d.UserID == CurrentUser.UserID);
+            if (UserProvider.CurrentUser.IsCoach)
+                docs = docs.Where(d => d.UserID == UserProvider.CurrentUser.UserID);
 
             return View(docs.ToList());
         }
@@ -38,7 +39,7 @@ namespace SportclubManager.Controllers
                 {
                     Db.Documents.InsertOnSubmit(document);
 
-                    document.UserID = CurrentUser.UserID;
+                    document.UserID = UserProvider.CurrentUser.UserID;
 
                     if (Request.Files.Count > 0)
                     {
@@ -64,7 +65,7 @@ namespace SportclubManager.Controllers
                     if (cachedDoc != null)
                     {
                         cachedDoc.DocumentName = document.DocumentName;
-                        cachedDoc.UserID = CurrentUser.UserID;
+                        cachedDoc.UserID = UserProvider.CurrentUser.UserID;
 
                         if (Request.Files.Count > 0)
                         {

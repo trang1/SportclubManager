@@ -160,6 +160,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CoachController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -182,6 +183,7 @@
       <DependentUpon>SportclubManager.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +326,8 @@
     <Content Include="Views\MemberEvidence\Index.cshtml" />
     <Content Include="Views\MemberEvidence\Evidences.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Error\NotFoundPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\documents\" />

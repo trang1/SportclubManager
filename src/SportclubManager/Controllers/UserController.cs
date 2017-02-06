@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SportclubManager.Auth;
 using SportclubManager.Models;
 
 namespace SportclubManager.Controllers
@@ -21,14 +22,15 @@ namespace SportclubManager.Controllers
             var user = Db.Users.FirstOrDefault(u => u.UserID == userId);
             if (userId == -1)
                 user = new User() {UserID = -1};
-            return View(user ?? CurrentUser);
+            return View(new UserModel(user ?? UserProvider.CurrentUser));
         }
 
         [HttpPost]
-        public ActionResult Save(User user)
+        public ActionResult Save(UserModel userModel)
         {
-            if (user != null)
+            if (ModelState.IsValid)
             {
+                var user = userModel.GetUser();
                 if (user.UserID == -1)
                 {
                     Db.Users.InsertOnSubmit(user);
@@ -39,20 +41,20 @@ namespace SportclubManager.Controllers
                     cachedUser.FirstName = user.FirstName;
                     cachedUser.LastName = user.LastName;
 
-                    if (!CurrentUser.IsCoach)
+                    if (!UserProvider.CurrentUser.IsCoach)
                         cachedUser.UserLogin = user.UserLogin;
 
-                    if (cachedUser.UserID == CurrentUser.UserID)
+                    if (cachedUser.UserID == UserProvider.CurrentUser.UserID)
                         cachedUser.UserPassword = user.UserPassword;
 
-                    if (!CurrentUser.IsCoach)
+                    if (!UserProvider.CurrentUser.IsCoach)
                         cachedUser.RoleID = user.RoleID;
                 }
                 Db.SubmitChanges();
             }
             else
             {
-
+                return View("Info", userModel);
             }
             return RedirectToAction("Index");
         }

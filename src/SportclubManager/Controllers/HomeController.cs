@@ -18,9 +18,9 @@ namespace SportclubManager.Controllers
 
         public ActionResult Home()
         {
-            if (CurrentUser != null)
+            if (UserProvider.CurrentUser != null)
             {
-                switch (CurrentUser.Role.RoleName)
+                switch (UserProvider.CurrentUser.Role.RoleName)
                 {
                     case Roles.Administrator:
                         return RedirectToAction("Index", "Admin");

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SportclubManager.Auth;
 using SportclubManager.Models;
 
 namespace SportclubManager.Controllers
@@ -15,9 +16,9 @@ namespace SportclubManager.Controllers
         {
             var members = Db.Members.AsQueryable();
 
-            if (CurrentUser.IsCoach)
+            if (UserProvider.CurrentUser.IsCoach)
             {
-                var groupIds = Db.Groups.Where(g => g.CoachID == CurrentUser.UserID).Select(g=>g.GroupID);
+                var groupIds = Db.Groups.Where(g => g.CoachID == UserProvider.CurrentUser.UserID).Select(g=>g.GroupID);
                 members = members.Where(d => d.GroupID.HasValue && groupIds.Contains(d.GroupID.Value));
             }
             return View(members.ToList());

@@ -16,8 +16,32 @@ namespace SportclubManager
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+                defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional}
+                );
+
+            routes.MapRoute(
+                null,
+                url: "Error",
+                defaults: new
+                {
+                    controller = "Error",
+                    action = "Index",
+                    id = UrlParameter.Optional
+                },
+                namespaces: new[] {"SportclubManager.Controllers"}
+                );
+            routes.MapRoute(
+                null,
+                url: "NotFoundPage",
+                defaults: new
+                {
+                    controller = "Error",
+                    action = "NotFoundPage",
+                    id = UrlParameter.Optional
+                },
+                namespaces: new[] {"SportclubManager.Controllers"}
+                );
+
         }
     }
 }

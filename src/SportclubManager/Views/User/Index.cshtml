@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using SportclubManager.Auth
 @model IList<SportclubManager.Models.User>
 
 <h2 align="center">Users</h2>
@@ -48,7 +49,7 @@
                     @user.Role.RoleName
                 </td>
                 <td>
-                    @if (user.UserID != user.CurrentUser.UserID)
+                    @if (user.UserID != UserProvider.CurrentUser.UserID)
                     {
                         @Html.ActionLink("Delete", "Delete", new {userId = user.UserID})
                     }
@@ -58,7 +59,7 @@
         </tbody>
     }
 </table>
-<p>
+<p align="center">
     @Html.ActionLink("Home", "Home", "Home", null, new { @class = "btn btn-info btn-lg" })
 </p>
 

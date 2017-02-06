@@ -16,12 +16,29 @@ namespace SportclubManager.Controllers
 
         [Inject]
         public IAuthentication Auth { get; set; }
-        public User CurrentUser
+
+        protected static string ErrorPage = "~/Error";
+        protected static string NotFoundPage = "~/NotFoundPage";
+        protected static string LoginPage = "~/Login";
+        public RedirectResult RedirectToNotFoundPage
         {
             get
             {
-                return ((IUserIdentity)Auth.CurrentUser.Identity).User;
+                return Redirect(NotFoundPage);
             }
+        }
+        public RedirectResult RedirectToLoginPage
+        {
+            get
+            {
+                return Redirect(LoginPage);
+            }
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            base.OnException(filterContext);
+            filterContext.Result = Redirect(ErrorPage);
         }
     }
 }

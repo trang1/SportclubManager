@@ -36,6 +36,6 @@ namespace SportclubManager.Controllers
         {
             Auth.LogOut();
             return RedirectToAction("Index", "Home");
-        }
+        }
     }
 }

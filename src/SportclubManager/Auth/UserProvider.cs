@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
+using System.Web.Mvc;
 using SportclubManager.Models;
 
 namespace SportclubManager.Auth
@@ -56,12 +57,21 @@ namespace SportclubManager.Auth
 
 
         /// <summary>
-        /// Имя пользователя
+        /// User Name
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
             return _userIndentity.Name;
+        }
+
+        public static User CurrentUser
+        {
+            get
+            {
+                var auth = DependencyResolver.Current.GetService<IAuthentication>();
+                return ((IUserIdentity) auth.CurrentUser.Identity).User;
+            }
         }
     }
 }

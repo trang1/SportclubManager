@@ -8,7 +8,9 @@
 
 <h2 align="center">Users</h2>
 <p>
-    @Html.ActionLink("Create New", "Info", "User", new {userId = -1}, null)
+    <div align="center">
+        <b> @Html.ActionLink("Create New", "Info", "User", new { userId = -1 }, new {@class = "btn btn-default"})</b>
+    </div>
 </p>
 <table class="table table-bordered table-hover">
     @if (Model != null && Model.Count > 0)

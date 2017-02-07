@@ -82,7 +82,9 @@ namespace SportclubManager.Models
         {
             get
             {
-                return Groups.Select(g => g.GroupID.ToString()).ToList();
+                var db = DependencyResolver.Current.GetService<SportclubManagerDataContext>();
+                var groups = db.Groups.Where(g => g.CoachID == UserID).ToList();
+                return groups.Select(g => g.GroupID.ToString()).ToList();
             }
             set
             {

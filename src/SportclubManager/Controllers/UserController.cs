@@ -13,6 +13,9 @@ namespace SportclubManager.Controllers
         // GET: User
         public ActionResult Index()
         {
+            if (UserProvider.CurrentUser.IsCoach)
+                return RedirectToNotFoundPage;
+
             var users = Db.Users.OrderBy(u => u.UserID).ToList();
             return View(users);
         }
@@ -56,7 +59,7 @@ namespace SportclubManager.Controllers
             {
                 return View("Info", userModel);
             }
-            return RedirectToAction("Index");
+            return UserProvider.CurrentUser.IsCoach ? RedirectToAction("Home", "Home") : RedirectToAction("Index");
         }
 
         public ActionResult Delete(int userid)

@@ -9,13 +9,13 @@
 <div class="container" align="center">
     <h2>User profile</h2>
     @{
-        var htmlAttributes = new Dictionary<string, object> { { "class", "form-control" } };
+        var htmlAttributes = new Dictionary<string, object> {{"class", "form-control"}};
         if (Model != null && UserProvider.CurrentUser.IsCoach)
         {
             htmlAttributes.Add("disabled", "disabled");
         }
     }
-    @using (Html.BeginForm("Save", "User", FormMethod.Post, new {@class = "form-login", @role = "form" }))
+    @using (Html.BeginForm("Save", "User", FormMethod.Post, new {@class = "form-login", @role = "form"}))
     {
         <div class="container" align="left">
             <div hidden>
@@ -47,26 +47,43 @@
             @Html.ValidationMessage("SelectedRoleValue")
             <p></p>
 
-            @if (Model.IsCoach)
-            {
+            <div id="groups">
                 <span>Groups</span>
                 @Html.ListBoxFor(l => l.SelectedGroups, Model.GroupList, htmlAttributes)
                 @Html.ValidationMessage("Groups")
                 <p></p>
-            }
+            </div>
+
         </div>
         <div class="row">
             <div class="col-md-5">
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success" onclick="$(':disabled').removeAttr('disabled');">
                     Save changes
                 </button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5">
-                <button class="btn btn-danger" onclick='window.history.back();'>
-                    Cancel editing
-                </button>
+                @(UserProvider.CurrentUser.IsCoach ?
+                      Html.ActionLink("Cancel editing", "Home", "Home", null, new {@class = "btn btn-danger"}) :
+                      Html.ActionLink("Cancel editing", "Index", "User", null, new {@class = "btn btn-danger"}))
             </div>
         </div>
     }
 </div>
+
+<script>
+    $(function() {
+        if ('@Model.IsCoach.ToString()' == 'False') 
+            $('#groups').hide();
+
+        $('#SelectedRoleValue').change(function () {
+            alert($('#SelectedRoleValue').val());
+            if ($('#SelectedRoleValue').val() == 1) {
+                $('#groups').hide();
+            } else {
+                $('#groups').show();
+            }
+        });
+    });
+
+</script>

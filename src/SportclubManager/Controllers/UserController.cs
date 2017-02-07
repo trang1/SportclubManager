@@ -54,6 +54,20 @@ namespace SportclubManager.Controllers
                         cachedUser.RoleID = user.RoleID;
                 }
                 Db.SubmitChanges();
+
+                //delete all related group references
+                var groupsForDelete = Db.Groups.Where(g => g.CoachID == user.UserID).ToList();
+                groupsForDelete.ForEach(g=>g.CoachID = null);
+                //set new related groups
+                if (user.SelectedGroups != null)
+                {
+                    foreach (var selectedGroup in user.SelectedGroups)
+                    {
+                        var group = Db.Groups.First(g => selectedGroup == g.GroupID.ToString());
+                        group.CoachID = user.UserID;
+                    }
+                }
+                Db.Groups.Context.SubmitChanges();
             }
             else
             {

@@ -7,7 +7,9 @@
 
 <h2 align="center">Groups</h2>
 <p>
-    @Html.ActionLink("Create New", "Info", "Group", new { groupId = -1 }, null)
+    <div align="center">
+        <b> @Html.ActionLink("Create New", "Info", "Group", new {groupId = -1}, new {@class = "btn btn-default"})</b>
+    </div>
 </p>
 <table class="table table-bordered table-hover">
     @if (Model != null && Model.Count > 0)
@@ -34,13 +36,13 @@
                         @group.CoachFullName
                     </td>
                     <td>
-                        @Html.ActionLink("Delete", "Delete", new { userId = group.GroupID })
+                        @Html.ActionLink("Delete", "Delete", new { groupId = group.GroupID })
                     </td>
                 </tr>
             }
         </tbody>
     }
 </table>
-<p>
+<p align="center">
     @Html.ActionLink("Home", "Home", "Home", null, new { @class = "btn btn-info btn-lg" })
 </p>

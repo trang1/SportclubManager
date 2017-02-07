@@ -15,8 +15,8 @@
                 @Html.TextBox("GroupID", Model?.GroupID, new { @class = "form-control" })
             </div>
             <span>Group Name</span>
-            @Html.TextBox("GroupName", Model?.GroupName, new { @class = "form-control" })
-            @Html.ValidationMessage("GroupName")
+            @Html.TextBox("GroupNameProxy", Model?.GroupNameProxy, new { @class = "form-control" })
+            @Html.ValidationMessage("GroupNameProxy")
             <p></p>
 
             <span>Coach</span>
@@ -32,9 +32,7 @@
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5">
-                <button class="btn btn-danger" onclick='window.history.back();'>
-                    Cancel editing
-                </button>
+                @Html.ActionLink("Cancel editing", "Index", "Group", null, new {@class = "btn btn-danger"})
             </div>
         </div>
     }

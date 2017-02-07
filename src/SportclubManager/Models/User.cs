@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using SportclubManager.Auth;
@@ -27,6 +28,9 @@ namespace SportclubManager.Models
             var hasRole = rolesArray.Any(p => string.Compare(p, Role.RoleName, StringComparison.OrdinalIgnoreCase) == 0);
             return hasRole;
         }
+
+        public IList<string> SelectedGroups { get; set; }
+
     }
 
     public class Roles

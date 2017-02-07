@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Linq;
 using System.Linq;
 using System.Web.Mvc;
+using Ninject.Infrastructure.Language;
 
 namespace SportclubManager.Models
 {
@@ -24,12 +25,12 @@ namespace SportclubManager.Models
         public string UserPassword { get; set; }
 
         public bool IsCoach { get; set; }
-        public EntitySet<Group> Groups { get; set; } 
         public Role Role { get; set; }
         public int? RoleID { get; set; }
 
         public UserModel()
         {
+            //delete all group constraints
         }
 
         public UserModel(User user)
@@ -40,9 +41,9 @@ namespace SportclubManager.Models
             UserLogin = user.UserLogin;
             UserPassword = user.UserPassword;
             IsCoach = user.IsCoach;
-            Groups = user.Groups;
             Role = user.Role;
             RoleID = user.RoleID;
+            SelectedGroups = user.Groups.Select(g=>g.GroupID.ToString()).ToList();
         }
         public IList<SelectListItem> Roles
         {
@@ -74,26 +75,12 @@ namespace SportclubManager.Models
                 LastName = LastName,
                 UserLogin = UserLogin,
                 UserPassword = UserPassword,
-                RoleID = RoleID
+                RoleID = RoleID,
+                SelectedGroups = SelectedGroups
             };
         }
 
-        public List<string> SelectedGroups
-        {
-            get
-            {
-                var db = DependencyResolver.Current.GetService<SportclubManagerDataContext>();
-                var groups = db.Groups.Where(g => g.CoachID == UserID).ToList();
-                return groups.Select(g => g.GroupID.ToString()).ToList();
-            }
-            set
-            {
-                var db = DependencyResolver.Current.GetService<SportclubManagerDataContext>();
-                var groups = db.Groups.Where(g => value.Contains(g.GroupID.ToString())).ToList();
-                groups.ForEach(g => g.CoachID = UserID);
-                db.Groups.Context.SubmitChanges();
-            }
-        }
+        public List<string> SelectedGroups { get; set; }
 
         [Required(ErrorMessage = "Please select a role")]
         public string SelectedRoleValue

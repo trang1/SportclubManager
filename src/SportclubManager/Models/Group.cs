@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,6 +38,13 @@ namespace SportclubManager.Models
         public string CoachFullName
         {
             get { return User?.FullName; }
+        }
+
+        [Required(ErrorMessage = "Please enter Group Name")]
+        public string GroupNameProxy
+        {
+            get { return GroupName; }
+            set { GroupName = value; }
         }
     }
 }

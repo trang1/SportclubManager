@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SportclubManager.Auth;
 using SportclubManager.Models;
 
 namespace SportclubManager.Controllers
@@ -12,6 +13,9 @@ namespace SportclubManager.Controllers
         // GET: Group
         public ActionResult Index()
         {
+            if (UserProvider.CurrentUser.IsCoach)
+                return RedirectToNotFoundPage;
+
             var groups = Db.Groups.OrderBy(u => u.GroupID).ToList();
             return View(groups);
         }
@@ -27,7 +31,7 @@ namespace SportclubManager.Controllers
         [HttpPost]
         public ActionResult Save(Group group)
         {
-            if (group != null)
+            if (ModelState.IsValid)
             {
                 if (group.GroupID == -1)
                 {
@@ -43,7 +47,7 @@ namespace SportclubManager.Controllers
             }
             else
             {
-
+                return View("Info", group);
             }
             return RedirectToAction("Index");
         }

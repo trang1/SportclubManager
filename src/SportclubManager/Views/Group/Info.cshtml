@@ -14,7 +14,7 @@
             <div hidden>
                 @Html.TextBox("GroupID", Model?.GroupID, new { @class = "form-control" })
             </div>
-            <span>Group Name</span>
+            <span>Group Name</span><span class="req">*</span>
             @Html.TextBox("GroupNameProxy", Model?.GroupNameProxy, new { @class = "form-control" })
             @Html.ValidationMessage("GroupNameProxy")
             <p></p>

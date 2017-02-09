@@ -176,6 +176,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MemberEvidenceModel.cs" />
+    <Compile Include="Models\MemberModel.cs" />
     <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\SportclubManager.designer.cs">
       <AutoGen>True</AutoGen>

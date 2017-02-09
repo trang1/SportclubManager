@@ -21,28 +21,28 @@
             <div hidden>
                 @Html.TextBox("UserID", Model.UserID, new {@class = "form-control"})
             </div>
-            <span>First Name</span>
+            <span>First Name</span><span class="req">*</span>
             @Html.TextBox("FirstName", Model.FirstName, new {@class = "form-control"})
             @Html.ValidationMessage("FirstName")
             <p></p>
-            <span>Last Name</span>
+            <span>Last Name</span><span class="req">*</span>
             @Html.TextBox("LastName", Model.LastName, new {@class = "form-control"})
             @Html.ValidationMessage("LastName")
             <p></p>
-            <span>User login</span>
+            <span>User login</span><span class="req">*</span>
             @Html.TextBox("UserLogin", Model.UserLogin, htmlAttributes)
             @Html.ValidationMessage("UserLogin")
             <p></p>
 
             @if (Model?.UserID == -1 || !UserProvider.CurrentUser.IsCoach || Model.UserID == UserProvider.CurrentUser.UserID)
             {
-                <span>Password</span>
+                <span>Password</span><span class="req">*</span>
                 @Html.Password("UserPassword", Model.UserPassword, new {@class = "form-control"})
                 @Html.ValidationMessage("UserPassword")
                 <p></p>
             }
 
-            <span>Role</span>
+            <span>Role</span><span class="req">*</span>
             @Html.DropDownListFor(n => n.SelectedRoleValue, Model.Roles, "Please select a role", htmlAttributes)
             @Html.ValidationMessage("SelectedRoleValue")
             <p></p>
@@ -61,7 +61,6 @@
                     Save changes
                 </button>
             </div>
-            <div class="col-md-2"></div>
             <div class="col-md-5">
                 @(UserProvider.CurrentUser.IsCoach ?
                       Html.ActionLink("Cancel editing", "Home", "Home", null, new {@class = "btn btn-danger"}) :

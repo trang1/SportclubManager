@@ -30,7 +30,6 @@ namespace SportclubManager.Models
 
         public UserModel()
         {
-            //delete all group constraints
         }
 
         public UserModel(User user)

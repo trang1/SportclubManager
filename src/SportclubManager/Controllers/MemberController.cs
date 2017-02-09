@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using SportclubManager.Auth;
 using SportclubManager.Models;
@@ -29,14 +30,15 @@ namespace SportclubManager.Controllers
             var member = Db.Members.FirstOrDefault(m => m.MemberID == memberId);
             if (memberId == -1)
                 member = new Member() { MemberID = -1, IsActive = true};
-            return View(member);
+            return View(new MemberModel(member));
         }
 
         [HttpPost]
-        public ActionResult Save(Member member)
+        public ActionResult Save(MemberModel memberModel)
         {
-            if (member != null)
+            if (ModelState.IsValid)
             {
+                var member = memberModel.GetMember();
                 if (member.MemberID == -1)
                 {
                     Db.Members.InsertOnSubmit(member);
@@ -49,7 +51,7 @@ namespace SportclubManager.Controllers
                             // extract only the filename
                             var fileName = Path.GetFileName(file.FileName);
 
-                            // store the file inside ~/App_Data/uploads/documents folder
+                            // store the file inside folder
                             const string location = "~/App_Data/uploads/members";
 
                             var path = Path.Combine(Server.MapPath(location), fileName);
@@ -84,7 +86,7 @@ namespace SportclubManager.Controllers
                             {
                                 // extract only the filename
                                 var fileName = Path.GetFileName(file.FileName);
-                                // store the file inside ~/App_Data/uploads/documents folder
+                                // store the file inside folder
                                 const string location = "~/App_Data/uploads/members";
 
                                 var path = Path.Combine(Server.MapPath(location), fileName);
@@ -99,7 +101,7 @@ namespace SportclubManager.Controllers
             }
             else
             {
-
+                return View("Info", memberModel);
             }
             return RedirectToAction("Index");
         }
@@ -119,7 +121,7 @@ namespace SportclubManager.Controllers
             return File(Server.MapPath(location), "application/text", Path.GetFileName(location));
         }
 
-        public ActionResult DeletePhoto(string location)
+        public JsonResult DeletePhoto(string location)
         {
             var path = Server.MapPath(location);
             try //Maybe error could happen like Access denied or Presses Already User used
@@ -132,10 +134,11 @@ namespace SportclubManager.Controllers
             }
             catch (Exception e)
             {
-                //Debug.WriteLine(e.Message);
+                Json(new {Success = false, Message = "Error. " + e.Message});
             }
 
-            return View("_Ok");
+            return Json(new {Success = true, Message = "Successfully deleted!"}, 
+                JsonRequestBehavior.AllowGet);
         }
     }
 }

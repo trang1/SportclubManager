@@ -5,25 +5,51 @@
 }
 @model SportclubManager.Models.Document
 
+<script>
+    function sendRequestToRemove() {
+        var location = $("#DocumentLocation").val();
+
+        $.ajax({
+            type: "GET",
+            url: "/Document/DeleteFile",
+            data: { location: location },
+            success: function(data) {
+                $("#DocumentLocation").val(null);
+                refreshControls();
+            }
+        });
+    }
+
+    function refreshControls() {
+        if (!$("#DocumentLocation").val()) {
+            $("#operate").hide();
+            $("#choose").show();
+        }
+        else {
+            $("#operate").show();
+            $("#choose").hide();
+        }
+    }
+</script>
+
 <div class="container" align="center">
     <h2>Document information</h2>
     @{
         AjaxOptions options = new AjaxOptions();
         options.HttpMethod = "GET";
-        options.UpdateTargetId = "cont";
         options.InsertionMode = InsertionMode.Replace;
-        options.OnComplete = "alert('complete')";
-        options.OnSuccess= "alert('success')";
     }
-    @using (Ajax.BeginForm("Save", "Document", FormMethod.Post, options, new {@class = "form-login", enctype = "multipart/form-data"}))
+    @using (Html.BeginForm("Save", "Document", FormMethod.Post,
+                        new { @class = "form-login", enctype = "multipart/form-data", @role = "form" }))
     {
         <div class="container" align="left">
             <div hidden>
-                @Html.TextBox("DocumentID", Model?.DocumentID, new {@class = "form-control"})
+                @Html.TextBox("DocumentID", Model.DocumentID, new {@class = "form-control"})
             </div>
+
             <span>Document Name</span>
-            @Html.TextBox("DocumentName", Model?.DocumentName, new {@class = "form-control"})
-            @Html.ValidationMessage("DocumentName")
+            @Html.TextBox("DocumentNameProxy", Model.DocumentNameProxy, new {@class = "form-control"})
+            @Html.ValidationMessage("DocumentNameProxy")
             <p></p>
 
             @*<span>Document Location</span>
@@ -31,45 +57,47 @@
                 @Html.ValidationMessage("DocumentLocation")*@
 
             <span>Attachment</span>
-            @if (string.IsNullOrEmpty(Model?.DocumentLocation))
-            {
+            @Html.Hidden("DocumentLocation", Model.DocumentLocation)
+
+            <div id="choose">
                 <p></p>
                 <input type="file" name="file" class="form-control"/>
-            }
-            else
-            {
-                <div class="row table-bordered" id="cont">
-                    <div class="col-md-5">
-                        @*<button class="btn btn-block" onclick='openFile("@Model.DocumentLocation")'>
+                <p></p>
+            </div>
+
+            <div class="row table-bordered" id="operate">
+                <div class="col-md-5">
+                    @*<button class="btn btn-block" onclick='openFile("@Model.DocumentLocation")'>
                             Open file
                         </button>*@
-                        @Ajax.ActionLink("Open file", "OpenFile", new {location = Model.DocumentLocation}, options)
-                    </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-5">
-                        @*<button class="btn btn-block" onclick='sendRequestToRemove("@Model.DocumentLocation")'>
-                            Delete file
-                        </button>*@
-                        @Ajax.ActionLink("Delete file", "DeleteFile", new {location = Model.DocumentLocation}, options)
-                    </div>
+                    @Ajax.ActionLink("Open file", "OpenFile", new {location = Model.DocumentLocation}, 
+                            options, new { @class = "btn btn-default" })
                 </div>
-            }
-            <p></p>
-
-            <div class="row">
                 <div class="col-md-5">
-                    <button type="submit" class="btn btn-success">
-                        Save changes
-                    </button>
-                </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-5">
-                    <button class="btn btn-danger" onclick='window.history.back();'>
-                        Cancel editing
+                    <button type="button" class="btn btn-default" onclick="sendRequestToRemove()">
+                        Delete file
                     </button>
                 </div>
             </div>
-            
+            <p></p>
+
         </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-success">
+                    Save changes
+                </button>
+            </div>
+            <div class="col-md-6">
+                @Html.ActionLink("Cancel editing", "Index", "Document", null, new { @class = "btn btn-danger" })
+            </div>
+        </div>
+
     }
 </div>
+<script>
+    $(window).load(function() {
+        refreshControls();
+    })
+</script>

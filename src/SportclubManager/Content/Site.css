@@ -92,17 +92,17 @@ textarea {
 }
 
 .select-day {
-    width: 60px;
+    width: 64px;
     height: 34px;
     border-radius: 4px;
 }
 .select-month {
-    width: 100px;
+    width: 106px;
     height: 34px;
     border-radius: 4px;
 }
 .select-year {
-    width: 80px;
+    width: 84px;
     height: 34px;
     border-radius: 4px;
 }.req {
@@ -110,4 +110,8 @@ textarea {
     font-style: italic;
 }.chb {
     margin: 0 !important;
+}.date-disabled {
+    margin: 2px;
+    text-align: center;
+    font-size: 16px;
 }

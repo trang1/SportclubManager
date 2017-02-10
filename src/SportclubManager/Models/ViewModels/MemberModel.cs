@@ -13,18 +13,34 @@ namespace SportclubManager.Models
         public int MemberID { get; set; }
 
         [Required(ErrorMessage = "Please enter First Name")]
+        [MaxLength(50, ErrorMessage = "Max length is 50 symbols")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Please enter Last Name")]
+        [MaxLength(50, ErrorMessage = "Max length is 50 symbols")]
         public string LastName { get; set; }
 
         public DateTime? DOB { get; set; }
+
+        [MaxLength(500, ErrorMessage = "Max length is 500 symbols")]
         public string Address { get; set; }
+
+        [MaxLength(100, ErrorMessage = "Max length is 100 symbols")]
         public string Father { get; set; }
+
+        [MaxLength(100, ErrorMessage = "Max length is 100 symbols")]
         public string FatherMail { get; set; }
+
+        [MaxLength(50, ErrorMessage = "Max length is 50 symbols")]
         public string FatherPhoneNo { get; set; }
+
+        [MaxLength(100, ErrorMessage = "Max length is 100 symbols")]
         public string Mother { get; set; }
+
+        [MaxLength(100, ErrorMessage = "Max length is 100 symbols")]
         public string MotherMail { get; set; }
+
+        [MaxLength(50, ErrorMessage = "Max length is 50 symbols")]
         public string MotherPhoneNo { get; set; }
         public string PhotoLocation { get; set; }
         public bool? IsActive { get; set; }

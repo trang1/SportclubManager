@@ -1,27 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Linq;
 using System.Linq;
 using System.Web.Mvc;
-using Ninject.Infrastructure.Language;
 
-namespace SportclubManager.Models
+namespace SportclubManager.Models.ViewModels
 {
     public class UserModel
     {
         public int UserID { get; set; }
 
         [Required(ErrorMessage = "Please enter First Name")]
+        [MaxLength(50, ErrorMessage = "Max length is 50 symbols")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Please enter Last Name")]
+        [MaxLength(50, ErrorMessage = "Max length is 50 symbols")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Please enter User Login")]
+        [MaxLength(50, ErrorMessage = "Max length is 50 symbols")]
         public string UserLogin { get; set; }
 
         [Required(ErrorMessage = "Please enter User Password")]
+        [MaxLength(50, ErrorMessage = "Max length is 50 symbols")]
         public string UserPassword { get; set; }
 
         public bool IsCoach { get; set; }

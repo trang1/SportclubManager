@@ -13,6 +13,9 @@ namespace SportclubManager.Controllers
         // GET: Group
         public ActionResult Index()
         {
+            if (UserProvider.CurrentUser == null)
+                return RedirectToAction("Home", "Home");
+
             if (UserProvider.CurrentUser.IsCoach)
                 return RedirectToNotFoundPage;
 
@@ -22,6 +25,9 @@ namespace SportclubManager.Controllers
 
         public ActionResult Info(int groupId)
         {
+            if (UserProvider.CurrentUser == null)
+                return RedirectToAction("Home", "Home");
+
             var group = Db.Groups.FirstOrDefault(u => u.GroupID == groupId);
             if (groupId == -1)
                 group = new Group() { GroupID = -1 };

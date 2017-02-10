@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using Microsoft.Ajax.Utilities
 @model SportclubManager.Models.MemberModel
 
 <script>
@@ -46,18 +45,18 @@
     {
         <div class="container" align="left">
             <div hidden>
-                @Html.TextBox("MemberID", Model.MemberID, new { @class = "form-control" })
+                @Html.TextBox("MemberID", Model.MemberID, new {@class = "form-control"})
             </div>
 
             <div class="row">
                 <div class="col-md-6">
                     <span>First Name</span><span class="req">*</span>
-                    @Html.TextBox("FirstName", Model.FirstName, new { @class = "form-control" })
+                    @Html.TextBox("FirstName", Model.FirstName, new {@class = "form-control"})
                     @Html.ValidationMessage("FirstName")
                 </div>
                 <div class="col-md-6">
                     <span>Last Name</span><span class="req">*</span>
-                    @Html.TextBox("LastName", Model.LastName, new { @class = "form-control" })
+                    @Html.TextBox("LastName", Model.LastName, new {@class = "form-control"})
                     @Html.ValidationMessage("LastName")
                 </div>
             </div>
@@ -65,50 +64,50 @@
 
             <span>Date of birth</span>
             <div class="controls">
-                @Html.DropDownList("BirthdateDay", Model.BirthdateDaySelectList, new { @class = "select-day" })
-                @Html.DropDownList("BirthdateMonth", Model.BirthdateMonthSelectList, new { @class = "select-month" })
-                @Html.DropDownList("BirthdateYear", Model.BirthdateYearSelectList, new { @class = "select-year" })
+                @Html.DropDownList("BirthdateDay", Model.BirthdateDaySelectList, new {@class = "select-day"})
+                @Html.DropDownList("BirthdateMonth", Model.BirthdateMonthSelectList, new {@class = "select-month"})
+                @Html.DropDownList("BirthdateYear", Model.BirthdateYearSelectList, new {@class = "select-year"})
             </div>
 
             <p></p>
 
             <span>Address</span>
-            @Html.TextBox("Address", Model.Address, new { @class = "form-control" })
+            @Html.TextBox("Address", Model.Address, new {@class = "form-control"})
             @Html.ValidationMessage("Address")
             <p></p>
 
             <span>Father's Name</span>
-            @Html.TextBox("Father", Model.Father, new { @class = "form-control" })
+            @Html.TextBox("Father", Model.Father, new {@class = "form-control"})
             @Html.ValidationMessage("Father")
             <p></p>
 
             <span>Father's Mail</span>
-            @Html.TextBox("FatherMail", Model.FatherMail, new { @class = "form-control" })
+            @Html.TextBox("FatherMail", Model.FatherMail, new {@class = "form-control"})
             @Html.ValidationMessage("FatherMail")
             <p></p>
 
             <span>Father's Phone Number</span>
-            @Html.TextBox("FatherPhoneNo", Model.FatherPhoneNo, new { @class = "form-control" })
+            @Html.TextBox("FatherPhoneNo", Model.FatherPhoneNo, new {@class = "form-control"})
             @Html.ValidationMessage("FatherPhoneNo")
             <p></p>
 
             <span>Mother's Name</span>
-            @Html.TextBox("Mother", Model.Mother, new { @class = "form-control" })
+            @Html.TextBox("Mother", Model.Mother, new {@class = "form-control"})
             @Html.ValidationMessage("Mother")
             <p></p>
 
             <span>Mother's Mail</span>
-            @Html.TextBox("MotherMail", Model.MotherMail, new { @class = "form-control" })
+            @Html.TextBox("MotherMail", Model.MotherMail, new {@class = "form-control"})
             @Html.ValidationMessage("MotherMail")
             <p></p>
 
             <span>Mother's Phone Number</span>
-            @Html.TextBox("MotherPhoneNo", Model.MotherPhoneNo, new { @class = "form-control" })
+            @Html.TextBox("MotherPhoneNo", Model.MotherPhoneNo, new {@class = "form-control"})
             @Html.ValidationMessage("MotherPhoneNo")
             <p></p>
 
             <span>Group</span><span class="req">*</span>
-            @Html.DropDownListFor(n => n.SelectedGroupValue, Model.GroupList, "Please select a group", new { @class = "form-control" })
+            @Html.DropDownListFor(n => n.SelectedGroupValue, Model.GroupList, "Please select a group", new {@class = "form-control"})
             @Html.ValidationMessage("SelectedGroupValue")
             <p></p>
 
@@ -118,7 +117,7 @@
 
             <div id="choose">
                 <p></p>
-                <input type="file" name="file" class="form-control" />
+                <input type="file" name="file" class="form-control"/>
                 <p></p>
             </div>
 
@@ -142,21 +141,21 @@
             <p></p>
 
             <span>Is active</span>
-            @Html.CheckBox("IsActive", Model.IsActive.GetValueOrDefault(false), new { @class = "checkbox-inline chb" })
+            @Html.CheckBox("IsActive", Model.IsActive.GetValueOrDefault(false), new {@class = "checkbox-inline chb"})
             <p></p>
 
         </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <button type="submit" class="btn btn-success">
-                        Save changes
-                    </button>
-                </div>
-                <div class="col-md-6">
-                    @Html.ActionLink("Cancel editing", "Index", "Member", null, new {@class = "btn btn-danger"})
-                </div>
-            </div>
 
+        <div class="row">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-success">
+                    Save changes
+                </button>
+            </div>
+            <div class="col-md-6">
+                @Html.ActionLink("Cancel editing", "Index", "Member", null, new {@class = "btn btn-danger"})
+            </div>
+        </div>
     }
 </div>
 <script>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SportclubManager.Auth;
 using SportclubManager.Models;
 
 namespace SportclubManager.Controllers
@@ -12,6 +13,9 @@ namespace SportclubManager.Controllers
         // GET: MemberEvidence
         public ActionResult Index()
         {
+            if (UserProvider.CurrentUser == null)
+                return RedirectToAction("Home", "Home");
+
             var mem = new MemberEvidenceModel();
 
             if (mem.Groups.Any())
@@ -26,7 +30,6 @@ namespace SportclubManager.Controllers
         private List<MemberEvidenceWeek> GetMembersEvidences(DateTime currentDate, int groupId)
         {
             var group = Db.Groups.FirstOrDefault(g => g.GroupID == groupId);
-            DateTime curDate;
             var list = new List<MemberEvidenceWeek>();
 
             if (group != null)

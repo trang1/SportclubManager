@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SportclubManager.Auth;
 using SportclubManager.Models;
+using SportclubManager.Models.ViewModels;
 
 namespace SportclubManager.Controllers
 {
@@ -13,6 +14,9 @@ namespace SportclubManager.Controllers
         // GET: User
         public ActionResult Index()
         {
+            if (UserProvider.CurrentUser == null)
+                return RedirectToAction("Home", "Home");
+
             if (UserProvider.CurrentUser.IsCoach)
                 return RedirectToNotFoundPage;
 
@@ -34,46 +38,61 @@ namespace SportclubManager.Controllers
             if (ModelState.IsValid)
             {
                 var user = userModel.GetUser();
-                if (user.UserID == -1)
+
+                if (CheckUserLogin(user))
                 {
-                    Db.Users.InsertOnSubmit(user);
+                    if (user.UserID == -1)
+                    {
+                        Db.Users.InsertOnSubmit(user);
+                    }
+                    else
+                    {
+                        var cachedUser = Db.Users.First(u => u.UserID == user.UserID);
+                        cachedUser.FirstName = user.FirstName;
+                        cachedUser.LastName = user.LastName;
+
+                        if (!UserProvider.CurrentUser.IsCoach)
+                            cachedUser.UserLogin = user.UserLogin;
+
+                        if (cachedUser.UserID == UserProvider.CurrentUser.UserID)
+                            cachedUser.UserPassword = user.UserPassword;
+
+                        if (!UserProvider.CurrentUser.IsCoach)
+                            cachedUser.RoleID = user.RoleID;
+                    }
+                    Db.SubmitChanges();
+
+                    //delete all related group references
+                    var groupsForDelete = Db.Groups.Where(g => g.CoachID == user.UserID).ToList();
+                    groupsForDelete.ForEach(g => g.CoachID = null);
+                    //set new related groups
+                    if (user.SelectedGroups != null)
+                    {
+                        foreach (var selectedGroup in user.SelectedGroups)
+                        {
+                            var group = Db.Groups.First(g => selectedGroup == g.GroupID.ToString());
+                            group.CoachID = user.UserID;
+                        }
+                    }
+                    Db.Groups.Context.SubmitChanges();
                 }
                 else
                 {
-                    var cachedUser = Db.Users.First(u => u.UserID == user.UserID);
-                    cachedUser.FirstName = user.FirstName;
-                    cachedUser.LastName = user.LastName;
-
-                    if (!UserProvider.CurrentUser.IsCoach)
-                        cachedUser.UserLogin = user.UserLogin;
-
-                    if (cachedUser.UserID == UserProvider.CurrentUser.UserID)
-                        cachedUser.UserPassword = user.UserPassword;
-
-                    if (!UserProvider.CurrentUser.IsCoach)
-                        cachedUser.RoleID = user.RoleID;
+                    ModelState.AddModelError("UserLogin", "This login is already in use");
+                    return View("Info", userModel);
                 }
-                Db.SubmitChanges();
-
-                //delete all related group references
-                var groupsForDelete = Db.Groups.Where(g => g.CoachID == user.UserID).ToList();
-                groupsForDelete.ForEach(g=>g.CoachID = null);
-                //set new related groups
-                if (user.SelectedGroups != null)
-                {
-                    foreach (var selectedGroup in user.SelectedGroups)
-                    {
-                        var group = Db.Groups.First(g => selectedGroup == g.GroupID.ToString());
-                        group.CoachID = user.UserID;
-                    }
-                }
-                Db.Groups.Context.SubmitChanges();
             }
             else
             {
                 return View("Info", userModel);
             }
             return UserProvider.CurrentUser.IsCoach ? RedirectToAction("Home", "Home") : RedirectToAction("Index");
+        }
+
+        private bool CheckUserLogin(User user)
+        {
+            var dbUser = Db.Users.FirstOrDefault(u => u.UserLogin.ToUpper() == user.UserLogin.ToUpper());
+            return dbUser == null || dbUser.UserID == user.UserID;
         }
 
         public ActionResult Delete(int userid)

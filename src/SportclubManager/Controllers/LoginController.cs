@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using SportclubManager.Models;
+using SportclubManager.Models.ViewModels;
 
 namespace SportclubManager.Controllers
 {

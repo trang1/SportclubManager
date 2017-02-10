@@ -78,12 +78,12 @@
         </div>
         <div class="col-lg-6">
             <button type="button" class="btn btn-default" onclick="addDate(-1);">
-                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span style="font-weight: bold; font-size: 20px"><</span>
             </button>
             @Html.TextBox("Date", Model.CurrentDateString, 
-                new {@disabled = "disabled", @align = "center", @date = Model.CurrentDate.ToString("yyyy-MM-dd")})
+                new {@disabled = "disabled", @class = "date-disabled", @date = Model.CurrentDate.ToString("yyyy-MM-dd")})
             <button type="button" class="btn btn-default" onclick="addDate(1);">
-                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span style="font-weight: bold; font-size: 20px">></span>
             </button>
         </div>
     </div>

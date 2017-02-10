@@ -14,6 +14,9 @@ namespace SportclubManager.Controllers
         // GET: Document
         public ActionResult Index()
         {
+            if (UserProvider.CurrentUser == null)
+                return RedirectToAction("Home", "Home");
+
             var docs = Db.Documents.AsQueryable();
 
             if (UserProvider.CurrentUser.IsCoach)
@@ -24,6 +27,9 @@ namespace SportclubManager.Controllers
 
         public ActionResult Info(int docId)
         {
+            if (UserProvider.CurrentUser == null)
+                return RedirectToAction("Home", "Home");
+
             var doc = Db.Documents.FirstOrDefault(d=>d.DocumentID == docId);
             if (docId == -1)
                 doc = new Document() { DocumentID = -1 };
@@ -33,7 +39,7 @@ namespace SportclubManager.Controllers
         [HttpPost]
         public ActionResult Save(Document document)
         {
-            if (document != null)
+            if (ModelState.IsValid)
             {
                 if (document.DocumentID == -1)
                 {
@@ -89,7 +95,7 @@ namespace SportclubManager.Controllers
             }
             else
             {
-
+                return View("Info", document);
             }
             return RedirectToAction("Index");
         }
@@ -110,7 +116,7 @@ namespace SportclubManager.Controllers
             return File(Server.MapPath(location), "application/text", Path.GetFileName(location));
         }
 
-        public ActionResult DeleteFile(string location)
+        public JsonResult DeleteFile(string location)
         {
             var path = Server.MapPath(location);
             try //Maybe error could happen like Access denied or Presses Already User used
@@ -123,10 +129,11 @@ namespace SportclubManager.Controllers
             }
             catch (Exception e)
             {
-                //Debug.WriteLine(e.Message);
+                return Json(new { Success = false, Message = "Error. " + e.Message });
             }
 
-            return View("_Ok");
+            return Json(new { Success = true, Message = "Successfully deleted!" },
+                JsonRequestBehavior.AllowGet);
         }
     }
 }

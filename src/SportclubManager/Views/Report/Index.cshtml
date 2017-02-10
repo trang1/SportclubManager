@@ -5,7 +5,7 @@
 }
 @model SportclubManager.Models.ReportModel
 
-<div class="container">
+<div class="container" align="center">
     @using (Html.BeginForm("Show", "Report", FormMethod.Post, new
     {
         @class = "form-login",
@@ -15,35 +15,37 @@
         <h2>Report</h2>
         <p></p>
 
-        <span>Group</span>
-        @Html.DropDownList("GroupID", Model.GroupList, new { @class = "form-control" })
-        @Html.ValidationMessage("GroupID")
-        <p></p>
+        <div class="container" align="left">
+            <span>Group</span>
+            @Html.DropDownList("GroupID", Model.GroupList, new {@class = "form-control"})
+            @Html.ValidationMessage("GroupID")
+            <p></p>
 
-        <span>Date from</span>
-        <div class="controls">
-            @Html.DropDownList("DateFromDay", Model.DateFromDaySelectList)
-            @Html.DropDownList("DateFromMonth", Model.DateFromMonthSelectList)
-            @Html.DropDownList("DateFromYear", Model.DateFromYearSelectList)
-        </div>
-        <p></p>
+            <span>Date from</span>
+            <div class="controls">
+                @Html.DropDownList("DateFromDay", Model.DateFromDaySelectList, new {@class = "select-day"})
+                @Html.DropDownList("DateFromMonth", Model.DateFromMonthSelectList, new {@class = "select-month"})
+                @Html.DropDownList("DateFromYear", Model.DateFromYearSelectList, new {@class = "select-year"})
+            </div>
+            <p></p>
 
-        <span>Date to</span>
-        <div class="controls">
-            @Html.DropDownList("DateToDay", Model.DateToDaySelectList)
-            @Html.DropDownList("DateToMonth", Model.DateToMonthSelectList)
-            @Html.DropDownList("DateToYear", Model.DateToYearSelectList)
+            <span>Date to</span>
+            <div class="controls">
+                @Html.DropDownList("DateToDay", Model.DateToDaySelectList, new {@class = "select-day"})
+                @Html.DropDownList("DateToMonth", Model.DateToMonthSelectList, new {@class = "select-month"})
+                @Html.DropDownList("DateToYear", Model.DateToYearSelectList, new {@class = "select-year"})
+            </div>
+            <p></p>
         </div>
-        <p></p>
 
         <div class="row" align="center">
-            <div class="col-lg-7">
+            <div class="col-md-7">
                 <button type="submit" class="btn btn-lg btn-primary">
-                    Download report
+                    Download
                 </button>
             </div>
-            <div class="col-lg-5">
-                @Html.ActionLink("Home", "Home", "Home", null, new { @class = "btn btn-info btn-lg" })
+            <div class="col-md-5">
+                @Html.ActionLink("Home", "Home", "Home", null, new {@class = "btn btn-info btn-lg"})
             </div>
         </div>
     }

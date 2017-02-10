@@ -19,7 +19,7 @@ namespace SportclubManager.Controllers
 
             if (UserProvider.CurrentUser.IsCoach)
             {
-                var groupIds = Db.Groups.Where(g => g.CoachID == UserProvider.CurrentUser.UserID).Select(g=>g.GroupID);
+                var groupIds = Db.Groups.Where(g => g.CoachID == UserProvider.CurrentUser.UserID).Select(g=>g.GroupID).ToList();
                 members = members.Where(d => d.GroupID.HasValue && groupIds.Contains(d.GroupID.Value));
             }
             return View(members.ToList());
@@ -134,7 +134,7 @@ namespace SportclubManager.Controllers
             }
             catch (Exception e)
             {
-                Json(new {Success = false, Message = "Error. " + e.Message});
+                return Json(new {Success = false, Message = "Error. " + e.Message});
             }
 
             return Json(new {Success = true, Message = "Successfully deleted!"}, 

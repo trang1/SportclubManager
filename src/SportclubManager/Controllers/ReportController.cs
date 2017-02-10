@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SportclubManager.Auth;
 using SportclubManager.Models;
 
 namespace SportclubManager.Controllers
@@ -13,6 +14,9 @@ namespace SportclubManager.Controllers
         // GET: Report
         public ActionResult Index()
         {
+            if (UserProvider.CurrentUser == null)
+                return RedirectToAction("Home", "Home");
+
             var rm = new ReportModel {DateFrom = DateTime.Today.AddDays(-1), DateTo = DateTime.Today};
             return View(rm);
         }

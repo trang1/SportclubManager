@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using SportclubManager.Auth
-@model SportclubManager.Models.UserModel
+@model SportclubManager.Models.ViewModels.UserModel
 
 <div class="container" align="center">
     <h2>User profile</h2>
@@ -76,7 +76,6 @@
             $('#groups').hide();
 
         $('#SelectedRoleValue').change(function () {
-            alert($('#SelectedRoleValue').val());
             if ($('#SelectedRoleValue').val() == 1) {
                 $('#groups').hide();
             } else {

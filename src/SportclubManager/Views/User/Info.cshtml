@@ -56,12 +56,12 @@
 
         </div>
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <button type="submit" class="btn btn-success" onclick="$(':disabled').removeAttr('disabled');">
                     Save changes
                 </button>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 @(UserProvider.CurrentUser.IsCoach ?
                       Html.ActionLink("Cancel editing", "Home", "Home", null, new {@class = "btn btn-danger"}) :
                       Html.ActionLink("Cancel editing", "Index", "User", null, new {@class = "btn btn-danger"}))

@@ -23,7 +23,7 @@ namespace SportclubManager.Controllers
 
         public ActionResult Show(ReportModel report)
         {
-            if (report?.GroupID != null)
+            if (ModelState.IsValid)
             {
                 var mes = Db.MemberEvidences.Where(
                     me => me.GroupID == report.GroupID && me.Date >= report.DateFrom && me.Date <= report.DateTo)
@@ -59,6 +59,10 @@ namespace SportclubManager.Controllers
                 Response.Output.Write(sw.ToString());
                 Response.Flush();
                 Response.End();
+            }
+            else
+            {
+                return View("Index", report);
             }
             return RedirectToAction("Index");
         }

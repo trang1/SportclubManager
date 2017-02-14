@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using SportclubManager.Auth
 @model IList<SportclubManager.Models.Document>
 
 <h2 align="center">Documents</h2>
@@ -36,7 +37,10 @@
                         @doc.UserFullName
                     </td>
                     <td>
-                        @Html.ActionLink("Delete", "Delete", new { docId = doc.DocumentID })
+                        @if (!UserProvider.CurrentUser.IsCoach || doc.UserID == UserProvider.CurrentUser.UserID)
+                        {
+                            @Html.ActionLink("Delete", "Delete", new {docId = doc.DocumentID})
+                        }
                     </td>
                 </tr>
             }

@@ -19,8 +19,9 @@ namespace SportclubManager.Controllers
 
             var docs = Db.Documents.AsQueryable();
 
-            if (UserProvider.CurrentUser.IsCoach)
-                docs = docs.Where(d => d.UserID == UserProvider.CurrentUser.UserID);
+            //•	Users with role Coach should be able to see other persons documents, but only delete their own. 
+            //if (UserProvider.CurrentUser.IsCoach)
+            //    docs = docs.Where(d => d.UserID == UserProvider.CurrentUser.UserID);
 
             return View(docs.ToList());
         }

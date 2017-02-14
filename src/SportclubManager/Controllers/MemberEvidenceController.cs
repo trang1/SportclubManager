@@ -17,10 +17,10 @@ namespace SportclubManager.Controllers
                 return RedirectToAction("Home", "Home");
 
             var mem = new MemberEvidenceModel();
+            mem.CurrentDate = DateTime.Today;
 
             if (mem.Groups.Any())
             {
-                mem.CurrentDate = DateTime.Today;
                 mem.MemberEvidences = GetMembersEvidences(mem.CurrentDate, mem.Groups.First().GroupID);
             }
 

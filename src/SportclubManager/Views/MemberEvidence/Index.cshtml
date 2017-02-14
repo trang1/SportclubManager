@@ -96,7 +96,7 @@
         });
     </script>
 
-    @if (Model.MemberEvidences != null && Model.MemberEvidences.Count > 0)
+    @if (Model.MemberEvidences != null/* && Model.MemberEvidences.Count > 0*/)
     {
         <div class="table-responsive" id="evidences">
             @Html.Partial("Evidences", Model.MemberEvidences)

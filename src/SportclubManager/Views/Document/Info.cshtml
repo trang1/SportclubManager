@@ -3,6 +3,7 @@
     ViewBag.Title = "Info";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using SportclubManager.Auth
 @model SportclubManager.Models.Document
 
 <script>
@@ -30,6 +31,11 @@
             $("#choose").hide();
         }
     }
+
+    function disableControls() {
+        if ($("#CoachChangeable").val() == 'True')
+            $("[coachChangeable]").attr("disabled", "disabled");
+    }
 </script>
 
 <div class="container" align="center">
@@ -46,9 +52,11 @@
             <div hidden>
                 @Html.TextBox("DocumentID", Model.DocumentID, new {@class = "form-control"})
             </div>
+            @Html.Hidden("CoachChangeable", UserProvider.CurrentUser.IsCoach && UserProvider.CurrentUser.UserID != Model.UserID)
+
 
             <span>Document Name</span>
-            @Html.TextBox("DocumentNameProxy", Model.DocumentNameProxy, new {@class = "form-control"})
+            @Html.TextBox("DocumentNameProxy", Model.DocumentNameProxy, new { @class = "form-control", @coachChangeable = "no"})
             @Html.ValidationMessage("DocumentNameProxy")
             <p></p>
 
@@ -61,7 +69,7 @@
 
             <div id="choose">
                 <p></p>
-                <input type="file" name="file" class="form-control"/>
+                <input type="file" name="file" class="form-control" coachChangeable="no"/>
                 <p></p>
             </div>
 
@@ -74,7 +82,7 @@
                             options, new { @class = "btn btn-default" })
                 </div>
                 <div class="col-md-5">
-                    <button type="button" class="btn btn-default" onclick="sendRequestToRemove()">
+                    <button type="button" class="btn btn-default" onclick="sendRequestToRemove()" coachChangeable="no">
                         Delete file
                     </button>
                 </div>
@@ -85,7 +93,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success" coachChangeable="no">
                     Save changes
                 </button>
             </div>
@@ -93,11 +101,11 @@
                 @Html.ActionLink("Cancel editing", "Index", "Document", null, new { @class = "btn btn-danger" })
             </div>
         </div>
-
     }
 </div>
 <script>
     $(window).load(function() {
         refreshControls();
+        disableControls();
     })
 </script>

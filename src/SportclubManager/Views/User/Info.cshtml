@@ -76,6 +76,7 @@
             $('#groups').hide();
 
         $('#SelectedRoleValue').change(function () {
+            // todo: remove ID = 1 (ADMIN) hardcode
             if ($('#SelectedRoleValue').val() == 1) {
                 $('#groups').hide();
             } else {
